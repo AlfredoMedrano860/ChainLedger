@@ -1,0 +1,104 @@
+/**
+ * Estilos de los botones flotantes de la esquina inferior derecha.
+ *
+ * .fab es la base (cuadro con borde grueso y sombra dura). .fab--a11y abre el panel
+ * de accesibilidad y .fab--top vuelve arriba; este último solo aparece con la clase
+ * is-visible, después de bajar en la página.
+ */
+
+.fab {
+  position: fixed;
+  right: var(--s-3);
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  padding: 0;
+  border: var(--rule-thick);
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.2s ease,
+    visibility 0s;
+}
+
+.fab svg {
+  width: 26px;
+  height: 26px;
+}
+
+.fab:hover {
+  background: var(--signal);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.fab:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.fab--a11y {
+  bottom: var(--s-3);
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 4px 4px 0 var(--signal);
+}
+
+.fab--a11y:hover,
+.fab--a11y[aria-expanded='true'] {
+  background: var(--signal);
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.fab--top {
+  bottom: calc(var(--s-3) + 52px + 16px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    background-color 0.15s ease,
+    transform 0.2s ease,
+    box-shadow 0.15s ease,
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.fab--top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    background-color 0.15s ease,
+    transform 0.2s ease,
+    box-shadow 0.15s ease,
+    opacity 0.2s ease;
+}
+
+.fab--top.is-visible:hover {
+  transform: translate(-2px, -2px);
+}
+
+@media (max-width: 560px) {
+  .fab {
+    right: var(--s-2);
+    width: 48px;
+    height: 48px;
+  }
+
+  .fab--a11y {
+    bottom: var(--s-2);
+  }
+
+  .fab--top {
+    bottom: calc(var(--s-2) + 48px + 14px);
+  }
+}

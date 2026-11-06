@@ -1,41 +1,25 @@
+/**
+ * @file Header del sitio: marca y menú de las 8 secciones.
+ */
 import { useEffect, useState } from 'react'
-import { PROJECT, SECTIONS, type SectionId } from '../data/site'
-import { LogoMark } from './Logo'
+import { LogoMark } from '../../components/Logo/LogoMark'
+import { PROJECT, SECTIONS, pad2 } from '../../data/site'
+import { useActiveSection } from './useActiveSection'
+import './header.css'
 
-// Resalta en el menú la sección que se está leyendo.
-function useActiveSection(): SectionId | null {
-  const [active, setActive] = useState<SectionId | null>(null)
-
-  useEffect(() => {
-    const targets = SECTIONS.map((s) => document.getElementById(s.id)).filter((el): el is HTMLElement => el !== null)
-    if (!targets.length) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-        if (visible[0]) setActive(visible[0].target.id as SectionId)
-      },
-      { rootMargin: '-35% 0px -55% 0px' },
-    )
-    targets.forEach((t) => observer.observe(t))
-    return () => observer.disconnect()
-  }, [])
-
-  return active
-}
-
+/**
+ * Header fijo en la parte superior, en dos niveles:
+ *  1. La marca ChainLedger (enlace al inicio).
+ *  2. Las 8 secciones del sitio, tomadas de `SECTIONS` en `data/site.ts`.
+ *
+ * La sección que se está leyendo se marca con una barra naranja. En pantallas de
+ * 760 px o menos, las secciones se esconden detrás del botón MENU; con el menú
+ * abierto, Escape lo cierra y el fondo deja de desplazarse.
+ */
 export function Header() {
   const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const active = useActiveSection()
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  // Cierra el menú con Escape y evita el scroll del fondo mientras está abierto.
   useEffect(() => {
     if (!open) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
@@ -48,12 +32,11 @@ export function Header() {
   }, [open])
 
   return (
-    <header className={`header ${scrolled ? 'is-scrolled' : ''}`}>
-      {/* nivel 1: marca */}
+    <header className="header">
       <div className="container header__inner">
         <a href="#top" className="brand" aria-label={`${PROJECT.name}, go to the top`}>
           <LogoMark className="brand__mark" />
-          <span className="brand__name">ChainLedger</span>
+          <span className="brand__name">{PROJECT.name}</span>
         </a>
 
         <button
@@ -71,7 +54,6 @@ export function Header() {
         </button>
       </div>
 
-      {/* nivel 2: las 8 secciones a todo el ancho */}
       <div className="header__nav-row">
         <nav id="site-nav" className={`container nav ${open ? 'is-open' : ''}`} aria-label="Sections">
           <ol className="nav__list">
@@ -84,7 +66,7 @@ export function Header() {
                   onClick={() => setOpen(false)}
                 >
                   <span className="nav__num" aria-hidden="true">
-                    {String(i + 1).padStart(2, '0')}
+                    {pad2(i + 1)}
                   </span>
                   {s.label}
                 </a>

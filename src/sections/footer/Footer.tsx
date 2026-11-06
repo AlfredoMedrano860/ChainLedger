@@ -1,10 +1,25 @@
-import { AUTHORS, PROJECT, SECTIONS } from '../data/site'
-import { shortHash } from '../lib/hash'
-import { Barcode } from './Barcode'
-import { LogoMark } from './Logo'
+/**
+ * @file Footer del sitio.
+ */
+import { Barcode } from '../../components/Barcode/Barcode'
+import { LogoMark } from '../../components/Logo/LogoMark'
+import { AUTHORS, PROJECT, SECTIONS, pad2 } from '../../data/site'
+import { shortHash } from '../../lib/hash'
+import './footer.css'
 
+/** Hash fijo del sitio (nombre + curso + fecha) para el código de barras decorativo. */
 const SITE_HASH = shortHash(`${PROJECT.name}|${PROJECT.course}|${PROJECT.date}`)
 
+/**
+ * Footer en fondo negro con:
+ *  - la marca grande y una descripción del sitio;
+ *  - enlaces a las 8 secciones;
+ *  - datos del proyecto (curso, profesora y fecha);
+ *  - autores con su carné;
+ *  - un código de barras del sitio y la línea de créditos.
+ *
+ * Todos los datos salen de `data/site.ts`.
+ */
 export function Footer() {
   return (
     <footer className="footer">
@@ -12,7 +27,7 @@ export function Footer() {
         <div className="footer__top">
           <a href="#top" className="footer__brand" aria-label={`${PROJECT.name}, go to the top`}>
             <LogoMark className="footer__mark" />
-            ChainLedger
+            {PROJECT.name}
           </a>
           <p className="footer__about">
             A student microsite about private blockchain for auditing and inventory control, made for the course {PROJECT.course}{' '}
@@ -27,7 +42,7 @@ export function Footer() {
               {SECTIONS.map((s, i) => (
                 <li key={s.id}>
                   <a href={`#${s.id}`}>
-                    <span>{String(i + 1).padStart(2, '0')}</span>
+                    <span>{pad2(i + 1)}</span>
                     {s.label}
                   </a>
                 </li>

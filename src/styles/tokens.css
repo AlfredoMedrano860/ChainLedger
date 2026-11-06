@@ -1,4 +1,12 @@
-/* Design system "Manifest" (ver DESIGN.md). */
+/**
+ * Variables del design system "Manifest" (ver DESIGN.md).
+ *
+ * Colores, reglas (bordes), familias tipográficas, escala de texto, espaciado (base
+ * 8 px) y medidas del header. --header-h es el alto total del header y cambia según
+ * el ancho de pantalla, porque las secciones del menú ocupan una fila, dos filas o
+ * se esconden en el botón MENU.
+ */
+
 :root {
   --paper: #dfe6d2;
   --paper-2: #ced8bf;
@@ -41,7 +49,6 @@
   --header-h: calc(var(--header-top) + var(--header-nav) + 4px);
 }
 
-/* el alto real del header cambia con el ancho (dos filas de secciones, o solo la marca) */
 @media (max-width: 1080px) and (min-width: 761px) {
   :root {
     --header-h: calc(var(--header-top) + var(--header-nav) * 2 + 4px);

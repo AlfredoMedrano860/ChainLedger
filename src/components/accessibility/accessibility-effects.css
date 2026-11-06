@@ -1,0 +1,128 @@
+/**
+ * Efectos visuales de cada ajuste de accesibilidad.
+ *
+ * lib/a11y.ts pone clases (a11y-contrast, a11y-dyslexia…) y atributos
+ * (data-a11y-font, data-a11y-color) en <html>; este archivo define qué cambia con
+ * cada uno. Los filtros de color se aplican al header, al main y al footer, no a
+ * los paneles de accesibilidad.
+ */
+
+@font-face {
+  font-family: 'OpenDyslexic';
+  src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
+  font-display: swap;
+}
+
+html[data-a11y-font='large'] {
+  font-size: 112.5%;
+}
+
+html[data-a11y-font='xlarge'] {
+  font-size: 125%;
+}
+
+html[data-a11y-font='xxlarge'] {
+  font-size: 140%;
+}
+
+html.a11y-dyslexia body *:not(svg, svg *) {
+  font-family: 'OpenDyslexic', var(--f-body) !important;
+  text-transform: none !important;
+}
+
+html.a11y-spacing :is(p, li, dd, dt, label, blockquote) {
+  letter-spacing: 0.06em !important;
+  word-spacing: 0.16em !important;
+  line-height: 1.9 !important;
+}
+
+html.a11y-short-lines :is(p, li, dd) {
+  max-width: 60ch;
+}
+
+html.a11y-align-left :is(p, h1, h2, h3, li, dd):not([data-a11y-ui] *) {
+  text-align: left !important;
+}
+
+html.a11y-contrast {
+  --paper: #ffffff;
+  --paper-2: #ececec;
+  --ink: #000000;
+  --ink-2: #000000;
+  --ink-3: #2b2b2b;
+  --signal-ink: #8f2100;
+  --rule-soft: 1px solid #000;
+}
+
+html.a11y-links a:not(.brand, .footer__brand) {
+  outline: 2px dashed var(--signal-ink);
+  outline-offset: 3px;
+}
+
+html.a11y-headings :is(h1, h2, h3):not([data-a11y-ui] *) {
+  background: var(--signal);
+  box-shadow: 0 0 0 6px var(--signal);
+}
+
+html.a11y-focus :focus-visible,
+html.a11y-contrast :focus-visible {
+  outline: 4px solid var(--signal) !important;
+  outline-offset: 3px !important;
+  box-shadow: 0 0 0 8px var(--ink) !important;
+}
+
+html.a11y-big-cursor,
+html.a11y-big-cursor * {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l15 11-7 1-3 7z' fill='%23141414' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E")
+      4 2,
+    auto !important;
+}
+
+html.a11y-hide-decor :is(.block__barcode, .footer__tag, .sec-head__num, .brand__mark) {
+  display: none !important;
+}
+
+html.a11y-hide-decor .block {
+  grid-template-columns: 48px minmax(0, 1fr);
+}
+
+html.a11y-reduce-motion {
+  scroll-behavior: auto;
+}
+
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  transition-duration: 0.01ms !important;
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+}
+
+html[data-a11y-color='monochrome'] :is(.header, main, .footer) {
+  filter: grayscale(1);
+}
+
+html[data-a11y-color='low-saturation'] :is(.header, main, .footer) {
+  filter: saturate(0.55);
+}
+
+html[data-a11y-color='high-saturation'] :is(.header, main, .footer) {
+  filter: saturate(1.8);
+}
+
+html[data-a11y-color='warm'] :is(.header, main, .footer) {
+  filter: sepia(0.3) saturate(1.05) hue-rotate(-6deg);
+}
+
+html[data-a11y-color='protanopia'] :is(.header, main, .footer) {
+  filter: url(#cl-protanopia);
+}
+
+html[data-a11y-color='deuteranopia'] :is(.header, main, .footer) {
+  filter: url(#cl-deuteranopia);
+}
+
+html[data-a11y-color='tritanopia'] :is(.header, main, .footer) {
+  filter: url(#cl-tritanopia);
+}

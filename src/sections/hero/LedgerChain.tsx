@@ -1,26 +1,38 @@
+/**
+ * @file Manifiesto interactivo del hero: una cadena de tres bloques que se puede alterar.
+ */
 import { useMemo, useState } from 'react'
-import { buildChain, type LedgerBlock } from '../lib/hash'
-import { Barcode } from './Barcode'
+import { Barcode } from '../../components/Barcode/Barcode'
+import { pad2 } from '../../data/site'
+import { buildChain } from '../../lib/hash'
+import { LEDGER_BLOCKS, TAMPERED_INDEX, TAMPERED_RECORD } from './ledgerData'
+import './ledger-chain.css'
 
-// Un lote de inventario en tres movimientos. Al "editar en secreto" el bloque 2,
-// su hash cambia y deja de coincidir con el que el bloque 3 tiene guardado.
-const ORIGINAL: LedgerBlock[] = [
-  { index: 1, record: '120 boxes received', place: 'Central warehouse', time: '08:14' },
-  { index: 2, record: '120 boxes loaded', place: 'Truck 07', time: '13:40' },
-  { index: 3, record: '120 boxes on shelf', place: 'Store 12', time: '18:05' },
-]
+/**
+ * Acorta un hash para mostrarlo: primeros 6 y últimos 4 caracteres.
+ *
+ * @param hash - Hash completo de 16 caracteres.
+ * @returns Por ejemplo `69e806…62b7`.
+ */
+const shortenHash = (hash: string) => `${hash.slice(0, 6)}…${hash.slice(-4)}`
 
-const TAMPERED_RECORD = '95 boxes loaded'
-
-const short = (h: string) => `${h.slice(0, 6)}…${h.slice(-4)}`
-
+/**
+ * Muestra el lote CL-204 como un manifiesto de tres bloques encadenados, cada uno
+ * con su hash, el hash del bloque anterior y un código de barras generado del hash.
+ *
+ * El botón "Change block 02" cambia en secreto el registro del bloque 2 (120 → 95
+ * cajas). Su hash cambia, pero el bloque 3 sigue guardando el hash original, así que
+ * ya no coinciden: la cadena se marca como rota en el bloque 3. Es la idea central
+ * de la introducción ("nobody can change it in secret") vista en acción.
+ *
+ * El estado del manifiesto se anuncia a lectores de pantalla con `role="status"`.
+ */
 export function LedgerChain() {
   const [tampered, setTampered] = useState(false)
 
-  // Hashes sellados cuando se creó la cadena (versión original).
-  const sealed = useMemo(() => buildChain(ORIGINAL).map((b) => b.hash), [])
+  const sealed = useMemo(() => buildChain(LEDGER_BLOCKS).map((b) => b.hash), [])
   const chain = useMemo(() => {
-    const blocks = tampered ? ORIGINAL.map((b) => (b.index === 2 ? { ...b, record: TAMPERED_RECORD } : b)) : ORIGINAL
+    const blocks = tampered ? LEDGER_BLOCKS.map((b) => (b.index === TAMPERED_INDEX ? { ...b, record: TAMPERED_RECORD } : b)) : LEDGER_BLOCKS
     return buildChain(blocks, sealed)
   }, [tampered, sealed])
 
@@ -34,16 +46,16 @@ export function LedgerChain() {
           <span className="manifest__lot">Lot CL-204</span>
         </div>
         <span className="manifest__status" role="status">
-          {brokenAt ? `Broken at block ${String(brokenAt).padStart(2, '0')}` : 'Verified'}
+          {brokenAt ? `Broken at block ${pad2(brokenAt)}` : 'Verified'}
         </span>
       </div>
 
       <ol className="manifest__rows">
         {chain.map((b) => {
-          const edited = tampered && b.index === 2
+          const edited = tampered && b.index === TAMPERED_INDEX
           return (
             <li key={b.index} className={`block ${edited ? 'is-edited' : ''} ${b.broken ? 'is-broken' : ''}`}>
-              <span className="block__num">{String(b.index).padStart(2, '0')}</span>
+              <span className="block__num">{pad2(b.index)}</span>
               <div className="block__body">
                 <p className="block__record">
                   {edited ? (
@@ -60,11 +72,11 @@ export function LedgerChain() {
                 <dl className="block__hashes">
                   <div>
                     <dt>Prev</dt>
-                    <dd className={b.broken ? 'is-bad' : ''}>{short(b.prevHash)}</dd>
+                    <dd className={b.broken ? 'is-bad' : ''}>{shortenHash(b.prevHash)}</dd>
                   </div>
                   <div>
                     <dt>Hash</dt>
-                    <dd className={edited ? 'is-changed' : ''}>{short(b.hash)}</dd>
+                    <dd className={edited ? 'is-changed' : ''}>{shortenHash(b.hash)}</dd>
                   </div>
                 </dl>
               </div>
