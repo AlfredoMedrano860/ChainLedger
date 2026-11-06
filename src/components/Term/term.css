@@ -1,0 +1,19 @@
+/**
+ * Estilos de las palabras del glosario dentro del texto (componente Term).
+ *
+ * Subrayado naranja grueso; al pasar el mouse el fondo se vuelve naranja.
+ */
+
+.term {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+  transition: background-color 0.15s ease;
+}
+
+.term:hover {
+  background: var(--signal);
+  text-decoration-color: var(--ink);
+}

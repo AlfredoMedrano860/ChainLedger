@@ -1,0 +1,37 @@
+/**
+ * Estilos de las secciones de contenido y su encabezado.
+ *
+ * .sec es el contenedor de cada sección (regla gruesa arriba y espacio vertical).
+ * .sec-head muestra el número grande en contorno, la etiqueta y el título.
+ */
+
+.sec {
+  padding: var(--s-12) 0;
+  border-top: var(--rule-thick);
+}
+
+.sec-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: end;
+  gap: var(--s-3);
+  padding-bottom: var(--s-3);
+  border-bottom: var(--rule-thick);
+}
+
+.sec-head__num {
+  font-family: var(--f-display);
+  font-size: clamp(5rem, 3rem + 8vw, 10rem);
+  font-weight: 900;
+  line-height: 0.75;
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+}
+
+.sec-head__text .label {
+  margin-bottom: 10px;
+}
+
+.sec-head__title {
+  font-size: var(--t-h2);
+}

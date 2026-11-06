@@ -1,0 +1,95 @@
+/**
+ * Estilos del hero (primera pantalla).
+ *
+ * Nombre del sitio a todo el ancho, y debajo dos columnas: texto y botones a la
+ * izquierda, manifiesto de la cadena a la derecha. En escritorio el subtítulo se
+ * ajusta al ancho de su columna (unidades cqi) para que siempre quepa en dos líneas.
+ */
+
+.hero {
+  padding: var(--s-3) 0 var(--s-12);
+}
+
+.hero__mega {
+  margin: var(--s-4) 0 0 -0.035em;
+  font-size: var(--t-mega);
+  font-weight: 900;
+  line-height: 0.78;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.hero__sub {
+  font-family: var(--f-display);
+  font-size: clamp(2.2rem, 1.5rem + 2.2vw, 3.5rem);
+  font-weight: 800;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.hero__copy {
+  container-type: inline-size;
+}
+
+@media (min-width: 901px) {
+  .hero__sub {
+    font-size: min(7.5cqi, 4.4rem);
+  }
+
+  .hero__sub span {
+    display: block;
+    white-space: nowrap;
+  }
+}
+
+.hero__sub + .hero__lead {
+  margin-top: var(--s-3);
+}
+
+.hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--s-6);
+  align-items: start;
+  margin-top: var(--s-4);
+  padding-top: var(--s-4);
+  border-top: var(--rule-thick);
+}
+
+.hero__lead {
+  max-width: 40rem;
+  font-size: var(--t-lead);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.hero__for {
+  margin-top: var(--s-3);
+  padding-top: 12px;
+  border-top: var(--rule);
+  color: var(--ink-2);
+  font-size: var(--t-small);
+}
+
+.hero__for .label {
+  margin-bottom: 4px;
+}
+
+.hero__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: var(--s-4);
+}
+
+@media (max-width: 420px) {
+  .hero__actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero__grid {
+    grid-template-columns: 1fr;
+  }
+}

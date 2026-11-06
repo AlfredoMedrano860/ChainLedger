@@ -1,35 +1,30 @@
-import type { ReactNode } from 'react'
-import { AUTHORS, SECTIONS } from '../data/site'
-
-// Término que enlaza a su definición en el glosario (la sección se construye después).
-function Term({ id, children }: { id: string; children: ReactNode }) {
-  return (
-    <a className="term" href={`#term-${id}`}>
-      {children}
-    </a>
-  )
-}
+/**
+ * @file Sección 01 · Introduction ("More Than Bitcoin").
+ *
+ * Autor del texto: José Alfredo Medrano Saravia. El texto es la versión final del
+ * borrador de la Parte 1 del documento de entrega; si se corrige allá, hay que
+ * actualizarlo aquí también.
+ */
+import { SectionHeader } from '../../components/SectionHeader/SectionHeader'
+import { Term } from '../../components/Term/Term'
+import { AUTHORS } from '../../data/site'
+import { SiteIndex } from './SiteIndex'
+import './introduction.css'
 
 const writer = AUTHORS[0]
 
+/**
+ * Sección de introducción: encabezado, datos de la sección (autor, tema y alcance),
+ * el texto en tres párrafos y el índice del sitio ({@link SiteIndex}).
+ *
+ * Las palabras del glosario usan {@link Term} y enlazan a `#term-{id}` en la sección
+ * Glossary.
+ */
 export function Introduction() {
-  // El índice no incluye la introducción.
-  const contents = SECTIONS.filter((s) => s.id !== 'introduction')
-
   return (
     <section id="introduction" className="sec" aria-labelledby="intro-title">
       <div className="container">
-        <header className="sec-head">
-          <span className="sec-head__num" aria-hidden="true">
-            01
-          </span>
-          <div className="sec-head__text">
-            <span className="label">Section 01 · Introduction</span>
-            <h2 id="intro-title" className="sec-head__title">
-              More Than Bitcoin
-            </h2>
-          </div>
-        </header>
+        <SectionHeader number={1} label="Introduction" title="More Than Bitcoin" titleId="intro-title" />
 
         <div className="intro">
           <dl className="fields intro__meta">
@@ -47,7 +42,6 @@ export function Introduction() {
             </div>
           </dl>
 
-          {/* Texto final del borrador de la Parte 1 (sin cambios). */}
           <article className="intro__text">
             <p className="intro__lede">
               When people hear the word <Term id="blockchain">blockchain</Term>, most of them think about Bitcoin and other
@@ -67,24 +61,7 @@ export function Introduction() {
           </article>
         </div>
 
-        {/* índice como tabla de manifiesto */}
-        <div className="contents">
-          <h3 className="contents__title">On this site</h3>
-          <ol className="contents__list">
-            {contents.map((s) => (
-              <li key={s.id}>
-                <a href={`#${s.id}`} className="contents__row">
-                  <span className="contents__num">{String(SECTIONS.indexOf(s) + 1).padStart(2, '0')}</span>
-                  <span className="contents__label">{s.label}</span>
-                  <span className="contents__summary">{s.summary}</span>
-                  <svg className="contents__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" aria-hidden="true">
-                    <path d="M4 12h16m-7-7 7 7-7 7" />
-                  </svg>
-                </a>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <SiteIndex />
       </div>
     </section>
   )

@@ -1,0 +1,186 @@
+/**
+ * Estilos del footer.
+ *
+ * Fondo negro con la marca grande, una cuadrícula de celdas (secciones, proyecto,
+ * autores y código de barras del sitio) y la línea de créditos.
+ */
+
+.footer {
+  padding: var(--s-8) 0 var(--s-3);
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.footer .label {
+  color: color-mix(in srgb, var(--paper) 55%, transparent);
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s-4);
+  align-items: end;
+  padding-bottom: var(--s-4);
+  border-bottom: 3px solid var(--paper);
+}
+
+.footer__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: var(--f-display);
+  font-size: clamp(3rem, 2rem + 4vw, 5.5rem);
+  font-weight: 900;
+  line-height: 0.8;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.footer__mark {
+  width: 0.6em;
+  height: 0.6em;
+}
+
+.footer__about {
+  max-width: 34rem;
+  justify-self: end;
+  color: color-mix(in srgb, var(--paper) 78%, transparent);
+  font-size: 0.95rem;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.8fr);
+  border-bottom: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
+}
+
+.footer__cell {
+  padding: var(--s-3) var(--s-3) var(--s-3) 0;
+}
+
+.footer__cell + .footer__cell {
+  padding-left: var(--s-3);
+  border-left: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
+}
+
+.footer__cell > .label {
+  margin-bottom: 14px;
+}
+
+.footer__links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+.footer__links a {
+  display: inline-flex;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.footer__links span {
+  color: var(--signal);
+  font-family: var(--f-data);
+  font-size: 0.66rem;
+  font-stretch: 87%;
+  line-height: 2;
+}
+
+.footer__links a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.footer__facts,
+.footer__authors {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__facts dd {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.footer__authors li {
+  display: grid;
+  gap: 2px;
+}
+
+.footer__author {
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.footer__tag {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.footer__barcode {
+  width: 100%;
+  height: 64px;
+  fill: var(--paper);
+}
+
+.footer__hash {
+  font-family: var(--f-data);
+  font-size: 0.66rem;
+  font-stretch: 87%;
+  letter-spacing: 0.12em;
+}
+
+.footer__base {
+  padding-top: var(--s-2);
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 960px) {
+  .footer__top {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__about {
+    justify-self: start;
+  }
+
+  .footer__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .footer__cell:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .footer__cell:nth-child(n + 3) {
+    border-top: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
+  }
+}
+
+@media (max-width: 560px) {
+  .footer__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer__cell + .footer__cell {
+    padding-left: 0;
+    border-top: 1px solid color-mix(in srgb, var(--paper) 30%, transparent);
+    border-left: 0;
+  }
+}

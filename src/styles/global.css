@@ -1,3 +1,14 @@
+/**
+ * Estilos base del sitio (design system "Manifest", ver DESIGN.md).
+ *
+ * Contiene: fuentes, reset, tipografía base, contenedor, utilidades de accesibilidad
+ * (.sr-only, .skip-link) y piezas compartidas por varias secciones:
+ *  - .label   etiqueta de campo en mono y mayúsculas.
+ *  - .fields / .field   grupo de campos tipo formulario con reglas.
+ *  - .btn / .btn--line / .btn--down   botones rectangulares con flecha.
+ * Al final se oculta la barra de scroll de la página y de los paneles.
+ */
+
 @import '@fontsource-variable/big-shoulders-display/wght';
 @import '@fontsource-variable/archivo/wdth';
 @import '@fontsource-variable/martian-mono/wdth';
@@ -102,7 +113,6 @@ p {
   transform: none;
 }
 
-/* etiqueta de campo (mono, mayúsculas) */
 .label {
   display: block;
   color: var(--ink-3);
@@ -115,7 +125,6 @@ p {
   text-transform: uppercase;
 }
 
-/* campos de formulario agrupados */
 .fields {
   display: grid;
   margin: 0;
@@ -134,7 +143,6 @@ p {
   line-height: 1.3;
 }
 
-/* botones */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -183,21 +191,6 @@ p {
   color: var(--ink);
 }
 
-/* palabra del glosario */
-.term {
-  font-weight: 700;
-  text-decoration: underline;
-  text-decoration-color: var(--signal);
-  text-decoration-thickness: 3px;
-  text-underline-offset: 3px;
-  transition: background-color 0.15s ease;
-}
-
-.term:hover {
-  background: var(--signal);
-  text-decoration-color: var(--ink);
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -211,7 +204,6 @@ p {
   }
 }
 
-/* sin barra de scroll visible (la página y los paneles siguen desplazándose) */
 html,
 .a11y-panel__body,
 .nav {
