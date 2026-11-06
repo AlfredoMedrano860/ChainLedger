@@ -2,6 +2,8 @@
  * @file Footer del sitio.
  */
 import { Barcode } from '../../components/Barcode/Barcode'
+import { ExternalLink } from '../../components/ExternalLink/ExternalLink'
+import { Fields } from '../../components/Fields/Fields'
 import { LogoMark } from '../../components/Logo/LogoMark'
 import { AUTHORS, PROJECT, SECTIONS, pad2 } from '../../data/site'
 import { shortHash } from '../../lib/hash'
@@ -11,11 +13,11 @@ import './footer.css'
 const SITE_HASH = shortHash(`${PROJECT.name}|${PROJECT.course}|${PROJECT.date}`)
 
 /**
- * Footer en fondo negro con:
+ * Footer en fondo grafito con:
  *  - la marca grande y una descripción del sitio;
  *  - enlaces a las 8 secciones;
  *  - datos del proyecto (curso, profesora y fecha);
- *  - autores con su carné;
+ *  - autores con su carné (con enlace a LinkedIn si lo tienen en data/site.ts);
  *  - un código de barras del sitio y la línea de créditos.
  *
  * Todos los datos salen de `data/site.ts`.
@@ -52,20 +54,15 @@ export function Footer() {
 
           <div className="footer__cell">
             <h2 className="label">Project</h2>
-            <dl className="footer__facts">
-              <div>
-                <dt className="label">Course</dt>
-                <dd>{PROJECT.course}</dd>
-              </div>
-              <div>
-                <dt className="label">Professor</dt>
-                <dd>{PROJECT.professor}</dd>
-              </div>
-              <div>
-                <dt className="label">Date</dt>
-                <dd>{PROJECT.date}</dd>
-              </div>
-            </dl>
+            <Fields
+              className="footer__facts"
+              ruled={false}
+              items={[
+                { label: 'Course', value: PROJECT.course },
+                { label: 'Professor', value: PROJECT.professor },
+                { label: 'Date', value: PROJECT.date },
+              ]}
+            />
           </div>
 
           <div className="footer__cell">
@@ -73,7 +70,18 @@ export function Footer() {
             <ul className="footer__authors">
               {AUTHORS.map((a) => (
                 <li key={a.id}>
-                  <span className="footer__author">{a.name}</span>
+                  {a.linkedin ? (
+                    <ExternalLink
+                      className="footer__author footer__author--link"
+                      arrowClassName="footer__external"
+                      href={a.linkedin}
+                      srLabel="on LinkedIn"
+                    >
+                      {a.name}
+                    </ExternalLink>
+                  ) : (
+                    <span className="footer__author">{a.name}</span>
+                  )}
                   <span className="label">{a.id}</span>
                 </li>
               ))}

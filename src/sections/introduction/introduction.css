@@ -1,47 +1,17 @@
 /**
  * Estilos de la sección 01 · Introduction.
  *
- * Dos columnas: datos de la sección a la izquierda (fijos al hacer scroll) y el texto
- * a la derecha. Debajo, el índice del sitio como tabla de manifiesto.
+ * Las dos columnas (datos y texto) vienen de ArticleLayout; aquí solo va el tamaño de
+ * la ilustración y, debajo, el índice del sitio como tabla de manifiesto.
  */
 
-.intro {
-  display: grid;
-  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-  gap: var(--s-6);
-  margin-top: var(--s-6);
-}
-
-.intro__meta {
-  align-self: start;
-  position: sticky;
-  top: calc(var(--header-h) + var(--s-3));
-}
-
-.intro__text {
-  display: grid;
-  gap: 1.2em;
-  max-width: 44rem;
-  color: var(--ink-2);
-  font-size: 1.1rem;
-  line-height: 1.7;
-}
-
-.intro__lede {
-  color: var(--ink);
-  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem);
-  font-weight: 600;
-  line-height: 1.3;
-  letter-spacing: -0.01em;
+.intro__illo {
+  max-width: 340px;
 }
 
 @media (max-width: 860px) {
-  .intro {
-    grid-template-columns: 1fr;
-  }
-
-  .intro__meta {
-    position: static;
+  .intro__illo {
+    max-width: 300px;
   }
 }
 

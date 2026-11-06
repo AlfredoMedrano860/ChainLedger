@@ -1,0 +1,350 @@
+/**
+ * Estilos de la sección 06 · Glossary (fichero de palabras).
+ *
+ * - .gl-bar      introducción y buscador.
+ * - .gl-letters  franja "Jump to" con las letras disponibles y el conteo.
+ * - .gl-grid     fichas en dos columnas que comparten reglas, como una hoja de
+ *                fichero; en 760 px o menos pasan a una columna.
+ * - .gl-card     una ficha. Al pasar el mouse se oscurece el borde superior en
+ *                rojo; la ficha a la que se llega desde un enlace (:target) se
+ *                pinta en grafito para encontrarla de inmediato.
+ */
+
+.gl-bar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 400px);
+  gap: var(--s-4);
+  align-items: end;
+  margin-top: var(--s-6);
+}
+
+.gl-bar__intro p {
+  max-width: 30rem;
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.gl-bar__intro .label {
+  margin-top: 10px;
+}
+
+.gl-bar__search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+  /* Deja que el buscador se angoste con la pantalla (el input tiene un ancho propio
+     que, con fuentes anchas como la de dislexia, lo sacaba de la pantalla). */
+  min-width: 0;
+}
+
+.gl-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: var(--rule-thick);
+  background: var(--paper);
+  transition: box-shadow 0.15s ease;
+}
+
+.gl-search:focus-within {
+  box-shadow: 5px 5px 0 var(--signal);
+}
+
+.gl-search svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-left: 14px;
+}
+
+.gl-search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 12px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  appearance: none;
+}
+
+.gl-search input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.gl-search input::placeholder {
+  color: var(--ink-3);
+  font-weight: 400;
+}
+
+.gl-search input:focus-visible {
+  outline: 0;
+}
+
+.gl-search__clear {
+  align-self: stretch;
+  padding: 0 14px;
+  border: 0;
+  border-left: var(--rule);
+  background: transparent;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.gl-search__clear:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.gl-letters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  margin-top: var(--s-4);
+  padding: 10px 0;
+  border-top: var(--rule-thick);
+  border-bottom: var(--rule);
+}
+
+.gl-letters ol {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: var(--rule);
+}
+
+.gl-letters li + li {
+  border-left: var(--rule);
+}
+
+.gl-letters a {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--f-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.gl-letters a:hover {
+  background: var(--ink);
+  color: var(--signal-soft);
+}
+
+.gl-letters a[aria-disabled='true'] {
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.gl-letters__count {
+  margin-left: auto;
+}
+
+.gl-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+}
+
+.gl-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 10px;
+  min-height: 230px;
+  overflow: hidden;
+  padding: var(--s-3) var(--s-3) var(--s-3) 0;
+  border-bottom: var(--rule);
+  box-shadow: inset 0 3px 0 transparent;
+  scroll-margin-top: calc(var(--header-h) + var(--s-3));
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.gl-card:nth-child(even) {
+  padding-left: var(--s-3);
+  border-left: var(--rule);
+}
+
+.gl-card:hover {
+  box-shadow: inset 0 4px 0 var(--signal);
+}
+
+.gl-card__letter {
+  position: absolute;
+  right: -0.04em;
+  bottom: -0.22em;
+  font-family: var(--f-display);
+  font-size: 13rem;
+  font-weight: 900;
+  line-height: 1;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--ink) 16%, transparent);
+  color: transparent;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gl-card__top {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.gl-card__num {
+  font-family: var(--f-data);
+  font-size: 0.72rem;
+  font-stretch: 87%;
+  font-weight: 600;
+}
+
+.gl-card__cat {
+  padding: 2px 8px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--f-data);
+  font-size: 0.62rem;
+  font-stretch: 87%;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.gl-card__term {
+  position: relative;
+  font-family: var(--f-display);
+  font-size: clamp(2rem, 1.6rem + 1.4vw, 2.9rem);
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.gl-card__body {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 0;
+}
+
+.gl-card__def {
+  max-width: 30rem;
+  font-size: 1.08rem;
+  line-height: 1.55;
+}
+
+.gl-card__seen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+}
+
+.gl-card__seen .label {
+  margin-right: 4px;
+}
+
+.gl-card__seen a {
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-data);
+  font-size: 0.64rem;
+  font-stretch: 87%;
+  font-weight: 600;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.gl-card__seen a:hover {
+  background: var(--signal);
+}
+
+.gl-card:target {
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: inset 0 6px 0 var(--signal);
+}
+
+.gl-card:target:nth-child(odd) {
+  padding-left: var(--s-3);
+}
+
+.gl-card:target .label {
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.gl-card:target .gl-card__cat {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+.gl-card:target .gl-card__letter {
+  -webkit-text-stroke-color: color-mix(in srgb, var(--paper) 22%, transparent);
+}
+
+.gl-empty {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-2);
+  padding: var(--s-4) 0;
+  border-bottom: var(--rule);
+}
+
+.gl-empty p {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 860px) {
+  .gl-bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .gl-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .gl-card,
+  .gl-card:nth-child(even) {
+    min-height: 0;
+    padding: var(--s-3) 0;
+    border-left: 0;
+  }
+
+  .gl-card:target,
+  .gl-card:target:nth-child(odd) {
+    padding-inline: var(--s-2);
+  }
+
+  .gl-card__letter {
+    font-size: 9rem;
+  }
+
+  .gl-letters__count {
+    margin-left: 0;
+  }
+}
