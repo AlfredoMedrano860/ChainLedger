@@ -89,7 +89,7 @@
 
 .a11y-panel__close:hover {
   background: var(--signal);
-  color: var(--ink);
+  color: var(--on-signal);
 }
 
 .a11y-panel__body {
@@ -179,14 +179,26 @@
 
 .a11y-row.is-on .a11y-row__state {
   background: var(--ink);
-  color: var(--signal);
+  color: var(--signal-soft);
 }
 
+/* 3 botones en fila con letra normal. Con letra grande los que no caben bajan de fila y
+   se estiran para llenarla (sin huecos). Las líneas entre botones son sombras de 1 px a
+   la izquierda y arriba; overflow: hidden recorta las que caen sobre el borde. */
 .a11y-cmds {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
   margin: 10px 0;
   border: var(--rule);
+}
+
+.a11y-cmds button {
+  flex: 1 0 auto;
+  padding-inline: 10px;
+  box-shadow:
+    -1px 0 0 var(--ink),
+    0 -1px 0 var(--ink);
 }
 
 .a11y-cmds button,
@@ -204,7 +216,6 @@
     color 0.15s ease;
 }
 
-.a11y-cmds button + button,
 .a11y-sizes button + button {
   border-left: var(--rule);
 }
@@ -226,8 +237,10 @@
   font-weight: 600;
 }
 
+/* flex-wrap: si con letra grande no caben juntos, los controles bajan bajo su nombre. */
 .a11y-field {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 14px;
@@ -237,16 +250,21 @@
 
 .a11y-field--stack {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 10px;
 }
 
+/* Cada botón mide al menos 48 px y crece con su texto: con letra grande "A+++" ya no
+   se sale de su cuadro. */
 .a11y-sizes {
   display: grid;
-  grid-template-columns: repeat(4, 48px);
+  flex: none;
+  grid-template-columns: repeat(4, minmax(48px, auto));
   border: var(--rule);
 }
 
 .a11y-sizes button {
+  padding-inline: 8px;
   font-family: var(--f-display);
   font-size: 1.05rem;
   text-transform: none;
@@ -257,9 +275,11 @@
   color: var(--paper);
 }
 
+/* Columnas medidas en rem: con letra normal caben 4; con letra más grande pasan a 3 o
+   2 en lugar de encimar los nombres. */
 .a11y-colors {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 5.3rem), 1fr));
   border-top: var(--rule);
   border-left: var(--rule);
 }

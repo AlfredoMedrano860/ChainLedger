@@ -3,8 +3,10 @@
  *
  * lib/a11y.ts pone clases (a11y-contrast, a11y-dyslexia…) y atributos
  * (data-a11y-font, data-a11y-color) en <html>; este archivo define qué cambia con
- * cada uno. Los filtros de color se aplican al header, al main y al footer, no a
- * los paneles de accesibilidad.
+ * cada uno. Los filtros de color se aplican al header, al main, al footer, a los botones
+ * flotantes y al chat; no al panel de accesibilidad, para que sus muestras de color se vean tal cual.
+ * En el header se aplican a sus partes (.header__inner y .nav) y no al header entero: un
+ * filtro en el header haría que el menú compacto (position: fixed) se recorte a su alto.
  */
 
 @font-face {
@@ -28,6 +30,99 @@ html[data-a11y-font='xxlarge'] {
 html.a11y-dyslexia body *:not(svg, svg *) {
   font-family: 'OpenDyslexic', var(--f-body) !important;
   text-transform: none !important;
+}
+
+/* OpenDyslexic es mucho más ancha que Big Shoulders (la fuente condensada de los
+   títulos): un mismo título ocupa unas 1.6 veces más. Con la fuente para dislexia se
+   achican los títulos grandes para que no se salgan de su columna ni de la pantalla, y
+   las palabras largas pueden partirse si aun así no caben. Los que deben caber en una
+   sola línea (el nombre del sitio, la marca del footer) dependen del ancho de la
+   pantalla y no del tamaño de letra, para no salirse aunque se elija la letra más grande. */
+html.a11y-dyslexia {
+  --t-mega: min(9rem, 10vw - 6px, 140px);
+  --t-h2: clamp(1.6rem, 1.1rem + 2.2vw, 2.9rem);
+  --t-h3: 1.25rem;
+}
+
+html.a11y-dyslexia :is(h1, h2, h3, p, dt, dd, a) {
+  overflow-wrap: break-word;
+}
+
+/* Los títulos tienen un interlineado muy apretado pensado para la fuente condensada;
+   con OpenDyslexic las líneas se encimaban. */
+html.a11y-dyslexia :is(h1, h2, h3, .hero__sub, .sec-head__title, .gl-card__term) {
+  line-height: 1.2;
+}
+
+/* Palabra de cada ficha del glosario: más chica para que palabras como "Traceability"
+   quepan en la ficha. */
+html.a11y-dyslexia .gl-card__term {
+  font-size: min(1.6rem, 7vw);
+}
+
+html.a11y-dyslexia .hero__sub {
+  font-size: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
+}
+
+html.a11y-dyslexia .hero__sub span {
+  white-space: normal;
+}
+
+/* min(): con letra muy grande en celular, la marca se ajusta al ancho de la pantalla para
+   que el botón MENU siga cabiendo a su lado. */
+html.a11y-dyslexia .brand__name {
+  font-size: min(1.35rem, 5.6vw);
+}
+
+html.a11y-dyslexia .footer__brand {
+  font-size: min(3.6rem, 8vw);
+}
+
+/* La marca del footer ocupa su propia fila y el texto va debajo, para que no se
+   encimen. */
+html.a11y-dyslexia .footer__top {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+html.a11y-dyslexia .footer__about {
+  justify-self: start;
+}
+
+/* Panel de accesibilidad: título más chico y los modos de color en columnas medidas en
+   rem, que con letra más grande pasan de 3 a 2 columnas en lugar de encimarse. */
+html.a11y-dyslexia .a11y-panel__title {
+  font-size: min(1.7rem, 8vw);
+  line-height: 1.2;
+}
+
+html.a11y-dyslexia .a11y-panel__head > div {
+  min-width: 0;
+}
+
+html.a11y-dyslexia .a11y-colors {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 7rem), 1fr));
+}
+
+/* Los comandos del lector pueden pasar a dos líneas. */
+html.a11y-dyslexia .a11y-cmds button {
+  padding: 6px 4px;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+/* Número de cada bloque del hero: su columna mide 44-48 px. */
+html.a11y-dyslexia .block__num {
+  font-size: min(1.1rem, 20px);
+}
+
+/* Enlaces del footer: las columnas se calculan en em, así que con letra más ancha o más
+   grande pasan de dos columnas a una en lugar de encimarse. */
+html.a11y-dyslexia .footer__links {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12em), 1fr));
+}
+
+html.a11y-dyslexia .header.is-compact .nav__link {
+  font-size: 1.3rem;
 }
 
 html.a11y-spacing :is(p, li, dd, dt, label, blockquote) {
@@ -79,7 +174,7 @@ html.a11y-big-cursor * {
     auto !important;
 }
 
-html.a11y-hide-decor :is(.block__barcode, .footer__tag, .sec-head__num, .brand__mark) {
+html.a11y-hide-decor :is(.block__barcode, .footer__tag, .sec-head__num, .brand__mark, .gl-card__letter, .flow__num, .illo, .flow__icon) {
   display: none !important;
 }
 
@@ -99,30 +194,30 @@ html.a11y-reduce-motion *::after {
   animation-iteration-count: 1 !important;
 }
 
-html[data-a11y-color='monochrome'] :is(.header, main, .footer) {
+html[data-a11y-color='monochrome'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: grayscale(1);
 }
 
-html[data-a11y-color='low-saturation'] :is(.header, main, .footer) {
+html[data-a11y-color='low-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: saturate(0.55);
 }
 
-html[data-a11y-color='high-saturation'] :is(.header, main, .footer) {
+html[data-a11y-color='high-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: saturate(1.8);
 }
 
-html[data-a11y-color='warm'] :is(.header, main, .footer) {
+html[data-a11y-color='warm'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: sepia(0.3) saturate(1.05) hue-rotate(-6deg);
 }
 
-html[data-a11y-color='protanopia'] :is(.header, main, .footer) {
+html[data-a11y-color='protanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: url(#cl-protanopia);
 }
 
-html[data-a11y-color='deuteranopia'] :is(.header, main, .footer) {
+html[data-a11y-color='deuteranopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: url(#cl-deuteranopia);
 }
 
-html[data-a11y-color='tritanopia'] :is(.header, main, .footer) {
+html[data-a11y-color='tritanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
   filter: url(#cl-tritanopia);
 }

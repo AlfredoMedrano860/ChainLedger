@@ -10,8 +10,8 @@ interface LogoMarkProps {
 
 /**
  * Dibuja el símbolo de la marca: dos cuadros encadenados, como el sello de una caja
- * de envío. El segundo va en naranja de señal. El contorno toma el color del texto
- * (`currentColor`), así que funciona sobre fondo claro y sobre el footer negro.
+ * de envío. El segundo va en rojo de señal. El contorno toma el color del texto
+ * (`currentColor`), así que funciona sobre fondo claro y sobre el footer grafito.
  *
  * Es decorativo (`aria-hidden`): el nombre accesible lo pone el enlace que lo contiene.
  *

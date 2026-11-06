@@ -38,7 +38,7 @@ function useGuideY() {
   return layer
 }
 
-/** Guía de lectura: una franja con línea naranja bajo el renglón que se está leyendo. */
+/** Guía de lectura: una franja con línea roja bajo el renglón que se está leyendo. */
 export function ReadingGuide() {
   const layer = useGuideY()
   return (

@@ -1,0 +1,33 @@
+/**
+ * Estilos de los íconos animados.
+ *
+ * .icon es la caja del ícono: toma el tamaño de su clase (por ejemplo,
+ * .contact__email-arrow) o el del SVG si el botón lo define (por ejemplo, .btn svg).
+ * La librería envuelve cada SVG en un div con clases de Tailwind
+ * ("inline-flex items-center justify-center") que este proyecto no carga; aquí se
+ * definen para que el ícono quede centrado y sin espacio de renglón debajo.
+ */
+
+.icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+
+.icon > div {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* :where() deja la especificidad en 0 para que las reglas de cada botón (.btn svg,
+   .fab svg…) sigan definiendo el tamaño cuando las hay. */
+:where(.icon) svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}

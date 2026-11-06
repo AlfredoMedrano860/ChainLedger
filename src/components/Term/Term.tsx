@@ -17,7 +17,7 @@ interface TermProps {
 }
 
 /**
- * Marca una palabra del glosario dentro de un párrafo con subrayado naranja y la
+ * Marca una palabra del glosario dentro de un párrafo con subrayado rojo y la
  * enlaza a su definición.
  *
  * @example
