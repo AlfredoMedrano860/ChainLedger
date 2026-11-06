@@ -1,11 +1,23 @@
+/**
+ * @file Hero: primera pantalla del sitio.
+ */
+import { ArrowIcon } from '../../components/icons/Icons'
+import { PROJECT } from '../../data/site'
 import { LedgerChain } from './LedgerChain'
+import './hero.css'
 
+/**
+ * Primera pantalla: el nombre del sitio a todo el ancho y, debajo, dos columnas.
+ *  - Izquierda: subtítulo (siempre en dos líneas en escritorio), descripción, público
+ *    y los botones "Start reading" (baja a la introducción) y "Glossary".
+ *  - Derecha: el manifiesto interactivo {@link LedgerChain}.
+ */
 export function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-title">
       <div className="container">
         <h1 id="hero-title" className="hero__mega">
-          ChainLedger
+          {PROJECT.name}
         </h1>
 
         <div className="hero__grid">
@@ -24,15 +36,11 @@ export function Hero() {
             <div className="hero__actions">
               <a href="#introduction" className="btn btn--down">
                 Start reading
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" aria-hidden="true">
-                  <path d="M12 4v16m-7-7 7 7 7-7" />
-                </svg>
+                <ArrowIcon direction="down" />
               </a>
               <a href="#glossary" className="btn btn--line">
                 Glossary
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="square" aria-hidden="true">
-                  <path d="M4 12h16m-7-7 7 7-7 7" />
-                </svg>
+                <ArrowIcon />
               </a>
             </div>
           </div>

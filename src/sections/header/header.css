@@ -1,0 +1,253 @@
+/**
+ * Estilos del header del sitio.
+ *
+ * Dos niveles: arriba la marca (centrada en escritorio) y abajo una fila con las 8
+ * secciones a todo el ancho. Entre 761 y 1080 px las secciones pasan a dos filas de
+ * cuatro; en 760 px o menos se ocultan y aparece el botón MENU con una lista vertical.
+ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--paper);
+  border-bottom: var(--rule-thick);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--s-3);
+  height: var(--header-top);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-inline: auto;
+  text-decoration: none;
+}
+
+.brand__mark {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.2s ease;
+}
+
+.brand:hover .brand__mark {
+  transform: translate(2px, -2px);
+}
+
+.brand__name {
+  font-family: var(--f-display);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.header__nav-row {
+  border-top: var(--rule);
+}
+
+.nav__list {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav__list li {
+  flex: 1 1 auto;
+}
+
+.nav__list li + li {
+  border-left: var(--rule-soft);
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: var(--header-nav);
+  padding: 0 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.nav__num {
+  color: var(--ink-3);
+  font-family: var(--f-data);
+  font-size: 0.6rem;
+  font-stretch: 87%;
+  font-weight: 500;
+}
+
+.nav__link:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.nav__link:hover .nav__num {
+  color: var(--signal);
+}
+
+.nav__link[aria-current='location'] {
+  box-shadow: inset 0 -5px 0 var(--signal);
+}
+
+.header__toggle {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.header__toggle::before {
+  content: 'Menu';
+}
+
+.header__toggle[aria-expanded='true'] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.burger {
+  position: relative;
+  display: block;
+  width: 16px;
+  height: 10px;
+}
+
+.burger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: currentColor;
+  transition: transform 0.2s ease, top 0.2s ease;
+}
+
+.burger span:first-child {
+  top: 0;
+}
+
+.burger span:last-child {
+  top: 8px;
+}
+
+.burger.is-open span:first-child {
+  top: 4px;
+  transform: rotate(45deg);
+}
+
+.burger.is-open span:last-child {
+  top: 4px;
+  transform: rotate(-45deg);
+}
+
+@media (max-width: 1080px) and (min-width: 761px) {
+  .nav__list {
+    flex-wrap: wrap;
+  }
+
+  .nav__list li {
+    flex: 1 1 25%;
+  }
+
+  .nav__list li:nth-child(5) {
+    border-left: 0;
+  }
+
+  .nav__list li:nth-child(n + 5) {
+    border-top: var(--rule-soft);
+  }
+}
+
+@media (max-width: 760px) {
+  .brand {
+    margin-inline: 0 auto;
+  }
+
+  .header__toggle {
+    display: inline-flex;
+  }
+
+  .header__nav-row {
+    border-top: 0;
+  }
+
+  .nav {
+    position: fixed;
+    inset: calc(var(--header-top) + 3px) 0 auto;
+    max-height: calc(100dvh - var(--header-top));
+    overflow-y: auto;
+    padding-bottom: var(--s-3);
+    background: var(--paper);
+    border-bottom: var(--rule-thick);
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 0.15s ease,
+      visibility 0s linear 0.15s;
+  }
+
+  .nav.is-open {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.15s ease;
+  }
+
+  .nav__list {
+    display: grid;
+  }
+
+  .nav__list li + li {
+    border-left: 0;
+  }
+
+  .nav__list li {
+    border-bottom: var(--rule);
+  }
+
+  .nav__link {
+    justify-content: flex-start;
+    gap: 16px;
+    height: auto;
+    padding: 14px 0;
+    font-family: var(--f-display);
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: 0;
+  }
+
+  .nav__link:hover {
+    padding-left: 10px;
+  }
+
+  .nav__num {
+    font-size: 0.72rem;
+  }
+
+  .nav__link[aria-current='location'] {
+    box-shadow: inset 5px 0 0 var(--signal);
+    padding-left: 16px;
+  }
+}

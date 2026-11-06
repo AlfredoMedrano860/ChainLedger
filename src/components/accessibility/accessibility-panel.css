@@ -1,106 +1,11 @@
-/* =========================================================
-   Botones flotantes (accesibilidad y volver arriba)
-   ========================================================= */
-.fab {
-  position: fixed;
-  right: var(--s-3);
-  z-index: 60;
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  padding: 0;
-  border: var(--rule-thick);
-  background: var(--paper);
-  color: var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
-  cursor: pointer;
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.15s ease,
-    box-shadow 0.15s ease,
-    opacity 0.2s ease,
-    visibility 0s;
-}
+/**
+ * Estilos del panel de accesibilidad ("Form A-11") y de las ayudas de lectura.
+ *
+ * El panel entra desde la derecha. Cada opción es una fila con un sello ON/OFF.
+ * Al final están la guía de lectura, la máscara de lectura y el resaltado del texto
+ * que el lector de voz está leyendo.
+ */
 
-.fab svg {
-  width: 26px;
-  height: 26px;
-}
-
-.fab:hover {
-  background: var(--signal);
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--ink);
-}
-
-.fab:active {
-  transform: translate(2px, 2px);
-  box-shadow: 1px 1px 0 var(--ink);
-}
-
-.fab--a11y {
-  bottom: var(--s-3);
-  background: var(--ink);
-  color: var(--paper);
-  box-shadow: 4px 4px 0 var(--signal);
-}
-
-.fab--a11y:hover,
-.fab--a11y[aria-expanded='true'] {
-  background: var(--signal);
-  color: var(--ink);
-  box-shadow: 6px 6px 0 var(--ink);
-}
-
-.fab--top {
-  bottom: calc(var(--s-3) + 52px + 16px);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(8px);
-  transition:
-    background-color 0.15s ease,
-    transform 0.2s ease,
-    box-shadow 0.15s ease,
-    opacity 0.2s ease,
-    visibility 0s linear 0.2s;
-}
-
-.fab--top.is-visible {
-  opacity: 1;
-  visibility: visible;
-  transform: none;
-  transition:
-    background-color 0.15s ease,
-    transform 0.2s ease,
-    box-shadow 0.15s ease,
-    opacity 0.2s ease;
-}
-
-.fab--top.is-visible:hover {
-  transform: translate(-2px, -2px);
-}
-
-@media (max-width: 560px) {
-  .fab {
-    right: var(--s-2);
-    width: 48px;
-    height: 48px;
-  }
-
-  .fab--a11y {
-    bottom: var(--s-2);
-  }
-
-  .fab--top {
-    bottom: calc(var(--s-2) + 48px + 14px);
-  }
-}
-
-/* =========================================================
-   Panel (formulario A-11)
-   ========================================================= */
 .a11y-filters {
   position: absolute;
   width: 0;
@@ -258,7 +163,6 @@
   line-height: 1.35;
 }
 
-/* sello ON/OFF */
 .a11y-row__state {
   flex: none;
   min-width: 44px;
@@ -452,9 +356,6 @@
   cursor: default;
 }
 
-/* =========================================================
-   Guía y máscara de lectura
-   ========================================================= */
 .reading-guide,
 .reading-mask {
   position: fixed;
@@ -503,133 +404,8 @@
     inset 0 -3px 0 var(--signal);
 }
 
-/* texto que el lector está leyendo */
 .a11y-reading {
   outline: 3px solid var(--signal) !important;
   outline-offset: 4px;
   background-color: color-mix(in srgb, var(--signal) 14%, transparent) !important;
-}
-
-/* =========================================================
-   Efectos de cada ajuste
-   ========================================================= */
-@font-face {
-  font-family: 'OpenDyslexic';
-  src: url('/fonts/OpenDyslexic-Regular.woff2') format('woff2');
-  font-display: swap;
-}
-
-html[data-a11y-font='large'] {
-  font-size: 112.5%;
-}
-
-html[data-a11y-font='xlarge'] {
-  font-size: 125%;
-}
-
-html[data-a11y-font='xxlarge'] {
-  font-size: 140%;
-}
-
-html.a11y-dyslexia body *:not(svg, svg *) {
-  font-family: 'OpenDyslexic', var(--f-body) !important;
-  text-transform: none !important;
-}
-
-html.a11y-spacing :is(p, li, dd, dt, label, blockquote) {
-  letter-spacing: 0.06em !important;
-  word-spacing: 0.16em !important;
-  line-height: 1.9 !important;
-}
-
-html.a11y-short-lines :is(p, li, dd) {
-  max-width: 60ch;
-}
-
-html.a11y-align-left :is(p, h1, h2, h3, li, dd):not([data-a11y-ui] *) {
-  text-align: left !important;
-}
-
-html.a11y-contrast {
-  --paper: #ffffff;
-  --paper-2: #ececec;
-  --ink: #000000;
-  --ink-2: #000000;
-  --ink-3: #2b2b2b;
-  --signal-ink: #8f2100;
-  --rule-soft: 1px solid #000;
-}
-
-html.a11y-links a:not(.brand, .footer__brand) {
-  outline: 2px dashed var(--signal-ink);
-  outline-offset: 3px;
-}
-
-html.a11y-headings :is(h1, h2, h3):not([data-a11y-ui] *) {
-  background: var(--signal);
-  box-shadow: 0 0 0 6px var(--signal);
-}
-
-html.a11y-focus :focus-visible,
-html.a11y-contrast :focus-visible {
-  outline: 4px solid var(--signal) !important;
-  outline-offset: 3px !important;
-  box-shadow: 0 0 0 8px var(--ink) !important;
-}
-
-html.a11y-big-cursor,
-html.a11y-big-cursor * {
-  cursor:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 24 24'%3E%3Cpath d='M4 2l15 11-7 1-3 7z' fill='%23141414' stroke='%23ffffff' stroke-width='1.5'/%3E%3C/svg%3E")
-      4 2,
-    auto !important;
-}
-
-html.a11y-hide-decor :is(.block__barcode, .footer__tag, .sec-head__num, .brand__mark) {
-  display: none !important;
-}
-
-html.a11y-hide-decor .block {
-  grid-template-columns: 48px minmax(0, 1fr);
-}
-
-html.a11y-reduce-motion {
-  scroll-behavior: auto;
-}
-
-html.a11y-reduce-motion *,
-html.a11y-reduce-motion *::before,
-html.a11y-reduce-motion *::after {
-  transition-duration: 0.01ms !important;
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-}
-
-/* filtros de color: se aplican al contenido, no a los paneles de accesibilidad */
-html[data-a11y-color='monochrome'] :is(.header, main, .footer) {
-  filter: grayscale(1);
-}
-
-html[data-a11y-color='low-saturation'] :is(.header, main, .footer) {
-  filter: saturate(0.55);
-}
-
-html[data-a11y-color='high-saturation'] :is(.header, main, .footer) {
-  filter: saturate(1.8);
-}
-
-html[data-a11y-color='warm'] :is(.header, main, .footer) {
-  filter: sepia(0.3) saturate(1.05) hue-rotate(-6deg);
-}
-
-html[data-a11y-color='protanopia'] :is(.header, main, .footer) {
-  filter: url(#cl-protanopia);
-}
-
-html[data-a11y-color='deuteranopia'] :is(.header, main, .footer) {
-  filter: url(#cl-deuteranopia);
-}
-
-html[data-a11y-color='tritanopia'] :is(.header, main, .footer) {
-  filter: url(#cl-tritanopia);
 }
