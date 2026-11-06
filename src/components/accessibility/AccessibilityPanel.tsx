@@ -217,7 +217,7 @@ export function AccessibilityPanel() {
               <SettingRow label="Highlight headings" setting="highlightHeadings" />
               <SettingRow label="Strong keyboard focus" setting="strongFocus" />
               <SettingRow label="Stop animations" setting="stopAnimations" />
-              <SettingRow label="Hide decorations" setting="hideDecorations" hint="Hides barcodes and big outline numbers." />
+              <SettingRow label="Hide decorations" setting="hideDecorations" hint="Hides illustrations, barcodes, and big outline numbers." />
             </section>
           </div>
 

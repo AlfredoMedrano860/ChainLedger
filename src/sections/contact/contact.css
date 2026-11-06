@@ -1,0 +1,247 @@
+/**
+ * Estilos de la sección 08 · Contact.
+ *
+ * Dos columnas: información (correo, ficha del curso y autores) y el formulario, que
+ * se ve como un formulario impreso con borde grueso. En 900 px o menos van una debajo
+ * de la otra.
+ */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+  gap: var(--s-6);
+  align-items: start;
+  margin-top: var(--s-6);
+}
+
+.contact__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 180px;
+  gap: var(--s-3);
+  align-items: center;
+}
+
+.contact__lede {
+  max-width: 36rem;
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.contact__email {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 2px 16px;
+  margin-top: var(--s-4);
+  padding: 14px 16px;
+  background: var(--ink);
+  color: var(--paper);
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.contact__email .label {
+  grid-column: 1;
+  color: color-mix(in srgb, var(--paper) 60%, transparent);
+}
+
+.contact__email-value {
+  grid-column: 1;
+  overflow-wrap: anywhere;
+  font-family: var(--f-display);
+  font-size: clamp(1.4rem, 1rem + 1.4vw, 2rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.contact__email-arrow {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  width: 26px;
+  height: 26px;
+}
+
+.contact__email:hover {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+.contact__email:hover .label {
+  color: var(--ink);
+}
+
+.contact__facts {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: var(--s-4);
+}
+
+.contact__facts .field:nth-child(even) {
+  padding-left: 14px;
+  border-left: var(--rule);
+}
+
+.contact__subtitle {
+  margin-top: var(--s-6);
+  padding-bottom: 8px;
+  border-bottom: var(--rule-thick);
+  font-size: var(--t-h3);
+}
+
+.contact__authors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.author {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 14px 14px 16px 0;
+  border-bottom: var(--rule);
+}
+
+.author + .author {
+  padding-left: 14px;
+  border-left: var(--rule);
+}
+
+.author__name {
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.author__wrote {
+  color: var(--ink-2);
+  font-size: 0.86rem;
+  line-height: 1.4;
+}
+
+.author__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border: 2px solid var(--ink);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.author__link svg {
+  width: 13px;
+  height: 13px;
+}
+
+.author__link:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.contact-form {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-3);
+  border: var(--rule-thick);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--ink);
+}
+
+.contact-form__head {
+  padding-bottom: 10px;
+  border-bottom: var(--rule-thick);
+}
+
+.contact-form__title {
+  margin-top: 4px;
+  font-size: 2rem;
+}
+
+.contact-form__field {
+  display: grid;
+  gap: 6px;
+}
+
+.contact-form__field input,
+.contact-form__field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: color-mix(in srgb, var(--paper) 60%, #fff);
+  color: var(--ink);
+  font: inherit;
+  resize: vertical;
+  appearance: none;
+}
+
+.contact-form__field input {
+  min-height: 48px;
+}
+
+.contact-form__field :is(input, textarea):focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: 0;
+}
+
+.contact-form__submit {
+  width: 100%;
+}
+
+.contact-form__note {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.contact-form__note a {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .contact {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .contact__intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__illo {
+    max-width: 200px;
+  }
+
+  .contact__facts,
+  .contact__authors {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__facts .field:nth-child(even),
+  .author + .author {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .contact-form {
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+}

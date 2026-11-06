@@ -55,7 +55,7 @@
 .fab--a11y:hover,
 .fab--a11y[aria-expanded='true'] {
   background: var(--signal);
-  color: var(--ink);
+  color: var(--on-signal);
   box-shadow: 6px 6px 0 var(--ink);
 }
 

@@ -6,10 +6,13 @@
  * cuatro; en 760 px o menos se ocultan y aparece el botón MENU con una lista vertical.
  */
 
+/* z-index 65: por encima de los botones flotantes y del chat cerrado (60), para que el
+   menú del celular los tape al abrirse; por debajo de la guía de lectura (70) y de los
+   paneles del chat (75) y de accesibilidad (79-80). */
 .header {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 65;
   background: var(--paper);
   border-bottom: var(--rule-thick);
 }
@@ -51,8 +54,11 @@
   border-top: var(--rule);
 }
 
+/* flex-wrap: si las secciones no caben, bajan de fila; Header.tsx lo detecta y cambia
+   al menú compacto (botón MENU). */
 .nav__list {
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -71,14 +77,18 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  height: var(--header-nav);
-  padding: 0 10px;
+  min-height: var(--header-nav);
+  padding: 6px 10px;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.03em;
+  line-height: 1.2;
+  text-align: center;
   text-decoration: none;
   text-transform: uppercase;
-  white-space: nowrap;
+  /* Si con letra grande o la fuente para dislexia no caben en una fila, los nombres
+     pasan a dos líneas en lugar de salirse de la pantalla. */
+  overflow-wrap: break-word;
   transition:
     background-color 0.15s ease,
     color 0.15s ease;
@@ -98,7 +108,7 @@
 }
 
 .nav__link:hover .nav__num {
-  color: var(--signal);
+  color: var(--signal-soft);
 }
 
 .nav__link[aria-current='location'] {
@@ -164,90 +174,99 @@
 }
 
 @media (max-width: 1080px) and (min-width: 761px) {
-  .nav__list {
+  .header:not(.is-compact) .nav__list {
     flex-wrap: wrap;
   }
 
-  .nav__list li {
+  .header:not(.is-compact) .nav__list li {
     flex: 1 1 25%;
   }
 
-  .nav__list li:nth-child(5) {
+  .header:not(.is-compact) .nav__list li:nth-child(5) {
     border-left: 0;
   }
 
-  .nav__list li:nth-child(n + 5) {
+  .header:not(.is-compact) .nav__list li:nth-child(n + 5) {
     border-top: var(--rule-soft);
   }
 }
 
-@media (max-width: 760px) {
-  .brand {
-    margin-inline: 0 auto;
-  }
-
-  .header__toggle {
-    display: inline-flex;
-  }
-
-  .header__nav-row {
-    border-top: 0;
-  }
-
-  .nav {
-    position: fixed;
-    inset: calc(var(--header-top) + 3px) 0 auto;
-    max-height: calc(100dvh - var(--header-top));
-    overflow-y: auto;
-    padding-bottom: var(--s-3);
-    background: var(--paper);
-    border-bottom: var(--rule-thick);
-    visibility: hidden;
-    opacity: 0;
-    transition:
-      opacity 0.15s ease,
-      visibility 0s linear 0.15s;
-  }
-
-  .nav.is-open {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.15s ease;
-  }
-
-  .nav__list {
-    display: grid;
-  }
-
-  .nav__list li + li {
-    border-left: 0;
-  }
-
-  .nav__list li {
-    border-bottom: var(--rule);
-  }
-
-  .nav__link {
-    justify-content: flex-start;
-    gap: 16px;
-    height: auto;
-    padding: 14px 0;
-    font-family: var(--f-display);
-    font-size: 1.9rem;
-    font-weight: 800;
-    letter-spacing: 0;
-  }
-
-  .nav__link:hover {
-    padding-left: 10px;
-  }
-
-  .nav__num {
-    font-size: 0.72rem;
-  }
-
-  .nav__link[aria-current='location'] {
-    box-shadow: inset 5px 0 0 var(--signal);
-    padding-left: 16px;
-  }
+/* Menú compacto: botón MENU y lista vertical que tapa la página. Header.tsx pone la
+   clase is-compact en celular (760 px o menos) y también en pantallas más anchas
+   cuando las secciones no caben en su fila (por ejemplo, con letra grande o la fuente
+   para dislexia). */
+.header.is-compact .brand {
+  margin-inline: 0 auto;
 }
+
+.header.is-compact .header__toggle {
+  display: inline-flex;
+}
+
+.header.is-compact .header__nav-row {
+  border-top: 0;
+}
+
+.header.is-compact .nav {
+  position: fixed;
+  /* Todo el ancho de la pantalla, aunque tenga la clase .container, pero con la lista
+     alineada al contenido (mismo margen que el logo). */
+  max-width: none;
+  padding-inline: max(var(--gutter), (100% - var(--max)) / 2);
+  /* Ocupa desde el header hasta el borde inferior para tapar toda la página,
+     incluidos los botones flotantes. */
+  inset: calc(var(--header-top) + 3px) 0 0;
+  overflow-y: auto;
+  padding-bottom: var(--s-3);
+  background: var(--paper);
+  border-bottom: var(--rule-thick);
+  visibility: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.15s ease,
+    visibility 0s linear 0.15s;
+}
+
+.header.is-compact .nav.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.15s ease;
+}
+
+.header.is-compact .nav__list {
+  display: grid;
+}
+
+.header.is-compact .nav__list li + li {
+  border-left: 0;
+}
+
+.header.is-compact .nav__list li {
+  border-bottom: var(--rule);
+}
+
+.header.is-compact .nav__link {
+  justify-content: flex-start;
+  text-align: left;
+  gap: 16px;
+  height: auto;
+  padding: 14px 0;
+  font-family: var(--f-display);
+  font-size: 1.9rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.header.is-compact .nav__link:hover {
+  padding-left: 10px;
+}
+
+.header.is-compact .nav__num {
+  font-size: 0.72rem;
+}
+
+.header.is-compact .nav__link[aria-current='location'] {
+  box-shadow: inset 5px 0 0 var(--signal);
+  padding-left: 16px;
+}
+

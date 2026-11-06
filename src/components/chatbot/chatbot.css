@@ -1,0 +1,435 @@
+/**
+ * Estilos del chatbot "Ask Blocky" y de la mascota.
+ *
+ * - .mascot        Blocky: pupilas que siguen al puntero (atributo transform desde Mascot.tsx),
+ *                  parpadeo cada pocos segundos y pupilas hacia arriba al pensar.
+ * - .chat__launcher botón flotante abajo a la izquierda (los de la derecha son
+ *                  accesibilidad y volver arriba).
+ * - .chat__panel   panel de conversación con borde grueso y sombra dura; en 560 px o
+ *                  menos ocupa todo el ancho.
+ */
+
+.mascot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.mascot--thinking .mascot__pupil {
+  transform: translate(2px, -3px);
+}
+
+.mascot__eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: mascot-blink 4.5s infinite;
+}
+
+@keyframes mascot-blink {
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(0.1);
+  }
+}
+
+.chat__launcher {
+  position: fixed;
+  bottom: var(--s-3);
+  left: var(--s-3);
+  z-index: 60;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.2, 1.4, 0.4, 1);
+}
+
+.chat__launcher:hover {
+  transform: translateY(-4px) rotate(-4deg);
+}
+
+.chat__launcher:active {
+  transform: translateY(1px);
+}
+
+.chat__launcher:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Con el chat abierto el botón es una X con el mismo aspecto y el mismo hover que el
+   botón de accesibilidad (.fab--a11y): cuadro grafito de 52 px con sombra roja que al
+   pasar el mouse se vuelve rojo y sube. */
+.chat__launcher-close {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: var(--rule-thick);
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: 4px 4px 0 var(--signal);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.chat__launcher-close svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* La X va abajo a la izquierda del botón, a la misma altura que el de accesibilidad. */
+.chat__launcher.is-open {
+  display: grid;
+  align-items: end;
+  justify-items: start;
+}
+
+.chat__launcher.is-open:hover,
+.chat__launcher.is-open:active {
+  transform: none;
+}
+
+.chat__launcher.is-open:hover .chat__launcher-close {
+  background: var(--signal);
+  color: var(--on-signal);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.chat__launcher.is-open:active .chat__launcher-close {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+.chat__bubble {
+  position: fixed;
+  bottom: calc(var(--s-3) + 16px);
+  left: calc(var(--s-3) + 76px);
+  z-index: 60;
+  padding: 8px 12px;
+  border: var(--rule-thick);
+  background: var(--paper);
+  box-shadow: 4px 4px 0 var(--ink);
+  /* No pasa del botón de accesibilidad (64 px + márgenes a la derecha): con letra
+     grande el texto baja a otra línea en lugar de quedar detrás del botón. */
+  max-width: calc(100vw - var(--s-3) * 2 - 76px - 72px);
+  font-size: 0.82rem;
+  font-weight: 700;
+  animation: chat-pop 0.4s cubic-bezier(0.2, 1.4, 0.4, 1) 1.2s both;
+}
+
+.chat__bubble::before {
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  width: 14px;
+  height: 14px;
+  border-bottom: var(--rule-thick);
+  border-left: var(--rule-thick);
+  background: var(--paper);
+  transform: translateY(-50%) rotate(45deg);
+  content: '';
+}
+
+@keyframes chat-pop {
+  from {
+    opacity: 0;
+    transform: translateX(-8px) scale(0.9);
+  }
+}
+
+.chat__panel {
+  position: fixed;
+  bottom: calc(var(--s-3) + 80px);
+  left: var(--s-3);
+  z-index: 75;
+  display: flex;
+  flex-direction: column;
+  width: min(390px, calc(100vw - 32px));
+  height: min(580px, calc(100dvh - 200px));
+  min-height: 360px;
+  border: var(--rule-thick);
+  background: var(--paper);
+  box-shadow: 8px 8px 0 var(--ink);
+  animation: chat-open 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes chat-open {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+.chat__head {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0 10px 14px;
+  border-bottom: var(--rule-thick);
+}
+
+.chat__head-mascot {
+  width: 48px;
+  height: 48px;
+}
+
+.chat__title {
+  margin-top: 2px;
+  font-size: 1.8rem;
+}
+
+.chat__close {
+  align-self: stretch;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  margin: -10px 0;
+  border: 0;
+  border-left: var(--rule-thick);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.chat__close svg {
+  width: 22px;
+  height: 22px;
+}
+
+.chat__close:hover {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+.chat__messages {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 14px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  scrollbar-width: none;
+}
+
+.chat__messages::-webkit-scrollbar {
+  display: none;
+}
+
+.chat__msg {
+  display: grid;
+  gap: 8px;
+  max-width: 88%;
+  padding: 10px 12px;
+  border: 2px solid var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.chat__msg--bot {
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--paper) 55%, #fff);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.chat__msg--user {
+  align-self: flex-end;
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chat__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  justify-self: start;
+  padding: 3px 8px;
+  border: 2px solid var(--ink);
+  background: var(--signal);
+  font-family: var(--f-data);
+  font-size: 0.66rem;
+  font-stretch: 87%;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.chat__link svg {
+  width: 13px;
+  height: 13px;
+}
+
+.chat__typing {
+  display: flex;
+  gap: 5px;
+  padding: 14px 12px;
+}
+
+.chat__typing span {
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  animation: chat-dot 0.9s infinite ease-in-out;
+}
+
+.chat__typing span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.chat__typing span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes chat-dot {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+.chat__suggestions {
+  display: flex;
+  gap: 6px;
+  padding: 8px 14px;
+  overflow-x: auto;
+  border-top: var(--rule);
+  scrollbar-width: none;
+}
+
+.chat__suggestions::-webkit-scrollbar {
+  display: none;
+}
+
+.chat__suggestions button {
+  flex: none;
+  padding: 5px 10px;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  font-size: 0.76rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.chat__suggestions button:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.chat__suggestions button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.chat__form {
+  display: flex;
+  border-top: var(--rule-thick);
+}
+
+.chat__form input {
+  flex: 1;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+}
+
+.chat__form input:focus-visible {
+  outline: 3px solid var(--signal);
+  outline-offset: -3px;
+}
+
+.chat__form button {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  border: 0;
+  border-left: var(--rule-thick);
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+}
+
+.chat__form button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.chat__form button:hover:not(:disabled) {
+  background: var(--signal);
+  color: var(--on-signal);
+}
+
+.chat__form button:disabled {
+  background: var(--paper-2);
+  color: var(--ink-3);
+  cursor: default;
+}
+
+@media (max-width: 560px) {
+  .chat__launcher {
+    bottom: var(--s-2);
+    left: var(--s-2);
+    width: 56px;
+    height: 56px;
+  }
+
+  /* Mismo tamaño que el botón de accesibilidad en celular. */
+  .chat__launcher-close {
+    width: 48px;
+    height: 48px;
+  }
+
+  .chat__bubble {
+    bottom: calc(var(--s-2) + 14px);
+    left: calc(var(--s-2) + 68px);
+  }
+
+  .chat__panel {
+    right: 8px;
+    bottom: calc(var(--s-2) + 68px);
+    left: 8px;
+    width: auto;
+    height: calc(100dvh - var(--header-h) - 100px);
+    box-shadow: 5px 5px 0 var(--ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot__eye,
+  .chat__typing span {
+    animation: none;
+  }
+}
+
+html.a11y-reduce-motion .mascot__eye,
+html.a11y-reduce-motion .chat__typing span {
+  animation: none;
+}

@@ -8,14 +8,16 @@
  */
 
 :root {
-  --paper: #dfe6d2;
-  --paper-2: #ced8bf;
-  --ink: #141414;
-  --ink-2: #3d3d3a;
-  --ink-3: #77756d;
-  --signal: #ff4b12;
-  --signal-ink: #c2330a;
-  --ok: #1d7a4e;
+  --paper: #e4e6ea;
+  --paper-2: #d3d6dc;
+  --ink: #2b2d33;
+  --ink-2: #4a4d55;
+  --ink-3: #5a5d66;
+  --signal: #f2412c;
+  --signal-ink: #b8301f;
+  --signal-soft: #ff7a66;
+  --on-signal: #16171b;
+  --ok: #1a6b45;
 
   --rule-thick: 3px solid var(--ink);
   --rule: 1px solid var(--ink);

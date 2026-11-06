@@ -1,0 +1,49 @@
+/**
+ * Estilos de ArticleLayout: dos columnas con los datos de la sección a la izquierda
+ * (fijos al hacer scroll) y el texto a la derecha. En 860 px o menos los datos y la
+ * ilustración pasan arriba del texto. Lo usan Introduction y Development.
+ */
+
+.article {
+  display: grid;
+  grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+  gap: var(--s-6);
+  margin-top: var(--s-6);
+}
+
+.article__side {
+  display: grid;
+  gap: var(--s-6);
+  align-self: start;
+  position: sticky;
+  top: calc(var(--header-h) + var(--s-3));
+}
+
+.article__text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  gap: 1.2em;
+  max-width: 44rem;
+  color: var(--ink-2);
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.article__lede {
+  color: var(--ink);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 860px) {
+  .article {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .article__side {
+    position: static;
+  }
+}

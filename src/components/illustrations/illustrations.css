@@ -1,0 +1,116 @@
+/**
+ * Estilos comunes de las ilustraciones.
+ *
+ * .illo es la figura. .illo__art apila la imagen con la parte fija y, encima, un SVG
+ * del mismo tamaño con los textos y las partes animadas. Cuando entra en pantalla
+ * recibe .is-in: el sello (.illo__stamp) se estampa y los bloques del libro
+ * (.illo__chain) aparecen uno tras otro. Con "Stop animations" o la preferencia del
+ * sistema de reducir movimiento, todo aparece directamente.
+ */
+
+.illo {
+  margin: 0;
+}
+
+.illo__art {
+  position: relative;
+}
+
+.illo__art img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.illo__art > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.illo__caption {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: var(--rule);
+}
+
+.illo__stamp {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.illo.is-in .illo__stamp {
+  animation: illo-stamp 0.45s cubic-bezier(0.2, 1.4, 0.4, 1) 0.35s both;
+}
+
+@keyframes illo-stamp {
+  from {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.illo__chain > * {
+  opacity: 0;
+}
+
+.illo.is-in .illo__chain > * {
+  animation: illo-fade 0.3s ease both;
+}
+
+.illo.is-in .illo__chain > :nth-child(2) {
+  animation-delay: 0.12s;
+}
+
+.illo.is-in .illo__chain > :nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+.illo.is-in .illo__chain > :nth-child(4) {
+  animation-delay: 0.32s;
+}
+
+@keyframes illo-fade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .illo__stamp,
+  .illo__chain > * {
+    opacity: 1;
+    animation: none !important;
+  }
+}
+
+html.a11y-reduce-motion .illo__stamp,
+html.a11y-reduce-motion .illo__chain > * {
+  opacity: 1;
+  animation: none !important;
+}
+
+/* Cuando la columna lateral pasa arriba del texto, la ilustración y su pie se centran. */
+@media (max-width: 860px) {
+  .illo {
+    margin-inline: auto;
+  }
+
+  .illo__caption {
+    text-align: center;
+  }
+}

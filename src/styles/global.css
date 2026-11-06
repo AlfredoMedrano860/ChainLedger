@@ -10,7 +10,9 @@
  */
 
 @import '@fontsource-variable/big-shoulders-display/wght';
-@import '@fontsource-variable/archivo/wdth';
+/* Archivo solo usa el eje de grosor (nunca se angosta), así que se carga el archivo
+   "wght", que pesa 35 KB en vez de los 88 KB del que incluye también el ancho. */
+@import '@fontsource-variable/archivo/wght';
 @import '@fontsource-variable/martian-mono/wdth';
 @import './tokens.css';
 
@@ -74,7 +76,7 @@ p {
 
 ::selection {
   background: var(--signal);
-  color: var(--ink);
+  color: var(--on-signal);
 }
 
 .container {
@@ -169,21 +171,12 @@ p {
 .btn svg {
   width: 20px;
   height: 20px;
-  transition: transform 0.2s ease;
 }
 
 .btn:hover {
   border-color: var(--signal);
   background: var(--signal);
-  color: var(--ink);
-}
-
-.btn:hover svg {
-  transform: translateX(4px);
-}
-
-.btn--down:hover svg {
-  transform: translateY(4px);
+  color: var(--on-signal);
 }
 
 .btn--line {

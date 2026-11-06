@@ -48,13 +48,32 @@ export const PROJECT = {
   courseCode: 'TM-6300',
   professor: 'Dra. Sussan Zamora Cortés',
   delivery: 'Second Delivery: Project Draft and Digital Prototype',
-  date: 'November 1st, 2026',
+  date: 'November 16th, 2026',
   year: 2026,
+  /** Correo del grupo para preguntas y comentarios (sección Contact). */
+  email: 'mc.alfredomedra@gmail.com',
+}
+
+/** Un autor del proyecto. */
+export interface Author {
+  /** Nombre completo. */
+  name: string
+  /** Carné universitario. */
+  id: string
+  /** Secciones que escribió. */
+  wrote: string
+  /** Perfil de LinkedIn (opcional). Si existe, el nombre se muestra como enlace en el footer. */
+  linkedin?: string
 }
 
 /** Autores del proyecto, con su carné y las secciones que escribió cada uno. */
-export const AUTHORS = [
-  { name: 'José Alfredo Medrano Saravia', id: 'C4H043', wrote: 'Introduction, Development, Glossary, and Contact' },
+export const AUTHORS: Author[] = [
+  {
+    name: 'José Alfredo Medrano Saravia',
+    id: 'C4H043',
+    wrote: 'Introduction, Development, Glossary, and Contact',
+    linkedin: 'https://www.linkedin.com/in/josealfredomedrano',
+  },
   { name: 'Didier Aarón Mayorga Hernández', id: 'C4H018', wrote: 'Concept, Example, Benefits and Limitations, and FAQ' },
 ]
 

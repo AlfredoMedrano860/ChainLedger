@@ -1,0 +1,123 @@
+/**
+ * Estilos de la sección 03 · Development.
+ *
+ * Las dos columnas (datos y texto) vienen de ArticleLayout, igual que en la
+ * introducción. Debajo, el diagrama de cuatro pasos (.flow) como una fila de celdas;
+ * en 760 px o menos los pasos van uno debajo del otro.
+ */
+
+.dev__illo {
+  max-width: 280px;
+}
+
+.flow {
+  margin: var(--s-8) 0 0;
+}
+
+.flow__title {
+  padding-bottom: 10px;
+  border-bottom: var(--rule-thick);
+  font-family: var(--f-display);
+  font-size: var(--t-h3);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.flow__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: var(--rule);
+}
+
+.flow__step {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  padding: var(--s-3) var(--s-3) var(--s-3) 0;
+  transition: background-color 0.15s ease;
+}
+
+.flow__step + .flow__step {
+  padding-left: var(--s-3);
+  border-left: var(--rule);
+}
+
+.flow__step + .flow__step::before {
+  position: absolute;
+  top: calc(var(--s-3) + 0.5rem);
+  left: -9px;
+  width: 16px;
+  height: 16px;
+  border: var(--rule-thick);
+  background: var(--signal);
+  transform: rotate(45deg);
+  content: '';
+}
+
+.flow__top {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.flow__icon {
+  width: 44px;
+  height: 44px;
+  transition: transform 0.2s ease;
+}
+
+.flow__step:hover .flow__icon {
+  transform: translate(2px, -3px);
+}
+
+.flow__num {
+  font-family: var(--f-display);
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 0.9;
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+
+.flow__name {
+  font-size: 1.7rem;
+}
+
+.flow__text {
+  color: var(--ink-2);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 860px) {
+  .dev__illo {
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 760px) {
+  .flow__steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow__step,
+  .flow__step + .flow__step {
+    padding: var(--s-2) 0 var(--s-2) var(--s-4);
+    border-left: 0;
+  }
+
+  .flow__step + .flow__step {
+    border-top: var(--rule);
+  }
+
+  .flow__step + .flow__step::before {
+    top: -9px;
+    left: 8px;
+  }
+}

@@ -1,0 +1,20 @@
+/**
+ * Estilos de una sección reservada (SectionPlaceholder).
+ *
+ * Un recuadro vacío con borde punteado, como un campo de formulario sin llenar.
+ */
+
+.placeholder {
+  display: grid;
+  align-content: end;
+  gap: 4px;
+  min-height: 220px;
+  margin-top: var(--s-6);
+  padding: var(--s-3);
+  border: 2px dashed color-mix(in srgb, var(--ink) 35%, transparent);
+}
+
+.placeholder__writer {
+  color: var(--ink-3);
+  font-size: var(--t-small);
+}

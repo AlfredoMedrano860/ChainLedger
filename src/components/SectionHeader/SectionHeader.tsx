@@ -21,14 +21,11 @@ interface SectionHeaderProps {
  * y el título, sobre una regla gruesa. Todas las secciones deben usarlo para que se
  * vean iguales.
  *
- * Debe ir dentro de un `<section className="sec">` con un `.container`.
+ * Normalmente no se usa directo: {@link Section} lo agrega con el número y el nombre
+ * que salen de `SECTIONS`.
  *
  * @example
- * <section id="concept" className="sec" aria-labelledby="concept-title">
- *   <div className="container">
- *     <SectionHeader number={2} label="Concept" title="What Is a Blockchain?" titleId="concept-title" />
- *   </div>
- * </section>
+ * <SectionHeader number={2} label="Concept" title="What Is a Blockchain?" titleId="concept-title" />
  */
 export function SectionHeader({ number, label, title, titleId }: SectionHeaderProps) {
   return (
