@@ -9,7 +9,7 @@
  *  - Tab no sale del panel mientras está abierto.
  *  - Un clic fuera del panel lo cierra.
  */
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from 'react'
 import { DEFAULTS, resetA11y, updateA11y, useA11y } from '../../lib/a11y'
 import { readerSupported, readPage, readSelection, stopReading, useSpeaking } from '../../lib/voiceReader'
 import { AccessibilityIcon, CloseIcon } from '../icons/Icons'
@@ -39,11 +39,21 @@ export function AccessibilityPanel() {
   const settings = useA11y()
   const speaking = useSpeaking()
   const [open, setOpen] = useState(false)
+  // El panel no existe en la página hasta la primera vez que se abre; desde entonces se
+  // queda montado para poder animar también el cierre (como el menú de Noctivulp).
+  const [mounted, setMounted] = useState(false)
   const [notice, setNotice] = useState('')
   const root = useRef<HTMLDivElement>(null)
   const fab = useRef<HTMLButtonElement>(null)
   const closeBtn = useRef<HTMLButtonElement>(null)
   useReaderListeners()
+
+  const toggle = () => {
+    if (mounted) return setOpen((o) => !o)
+    setMounted(true)
+    // un cuadro cerrado primero para que la entrada se anime
+    requestAnimationFrame(() => requestAnimationFrame(() => setOpen(true)))
+  }
 
   const close = useCallback(() => {
     setOpen(false)
@@ -104,9 +114,17 @@ export function AccessibilityPanel() {
       {settings.readingMask && <ReadingMask />}
 
       <div ref={root} className="a11y" data-a11y-ui="">
-        {open && <div className="a11y-scrim" aria-hidden="true" onClick={close} />}
+        {mounted && <div className={`a11y-scrim ${open ? 'is-open' : ''}`} aria-hidden="true" onClick={close} />}
 
-        <aside id="a11y-panel" className="a11y-panel" role="dialog" aria-modal={open} aria-labelledby="a11y-title" hidden={!open}>
+        {mounted && (
+        <aside
+          id="a11y-panel"
+          className={`a11y-panel ${open ? 'is-open' : ''}`}
+          role="dialog"
+          aria-modal={open}
+          aria-labelledby="a11y-title"
+          inert={!open}
+        >
           <header className="a11y-panel__head">
             <div>
               <span className="label">Form A-11 · Reading settings</span>
@@ -120,7 +138,7 @@ export function AccessibilityPanel() {
           </header>
 
           <div className="a11y-panel__body">
-            <section className="a11y-group" aria-labelledby="a11y-g1">
+            <section className="a11y-group" style={{ '--i': 0 } as CSSProperties} aria-labelledby="a11y-g1">
               <h3 id="a11y-g1" className="a11y-group__title">
                 <span>01</span> Read aloud
               </h3>
@@ -149,7 +167,7 @@ export function AccessibilityPanel() {
               <SettingRow label="Read controls on keyboard focus" setting="readFocus" disabled={readerOff} />
             </section>
 
-            <section className="a11y-group" aria-labelledby="a11y-g2">
+            <section className="a11y-group" style={{ '--i': 1 } as CSSProperties} aria-labelledby="a11y-g2">
               <h3 id="a11y-g2" className="a11y-group__title">
                 <span>02</span> Text
               </h3>
@@ -178,7 +196,7 @@ export function AccessibilityPanel() {
               <SettingRow label="Align text to the left" setting="alignLeft" />
             </section>
 
-            <section className="a11y-group" aria-labelledby="a11y-g3">
+            <section className="a11y-group" style={{ '--i': 2 } as CSSProperties} aria-labelledby="a11y-g3">
               <h3 id="a11y-g3" className="a11y-group__title">
                 <span>03</span> Color
               </h3>
@@ -207,7 +225,7 @@ export function AccessibilityPanel() {
               </div>
             </section>
 
-            <section className="a11y-group" aria-labelledby="a11y-g4">
+            <section className="a11y-group" style={{ '--i': 3 } as CSSProperties} aria-labelledby="a11y-g4">
               <h3 id="a11y-g4" className="a11y-group__title">
                 <span>04</span> Focus
               </h3>
@@ -228,6 +246,7 @@ export function AccessibilityPanel() {
             </button>
           </footer>
         </aside>
+        )}
 
         <button
           ref={fab}
@@ -236,7 +255,7 @@ export function AccessibilityPanel() {
           aria-label="Accessibility settings"
           aria-expanded={open}
           aria-controls="a11y-panel"
-          onClick={() => setOpen((o) => !o)}
+          onClick={toggle}
         >
           <AccessibilityIcon />
         </button>
