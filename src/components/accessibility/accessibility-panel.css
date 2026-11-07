@@ -1,7 +1,7 @@
 /**
  * Estilos del panel de accesibilidad ("Form A-11") y de las ayudas de lectura.
  *
- * El panel entra desde la derecha. Cada opción es una fila con un sello ON/OFF.
+ * El panel entra y sale deslizándose desde la derecha. Cada opción es una fila con un sello ON/OFF.
  * Al final están la guía de lectura, la máscara de lectura y el resaltado del texto
  * que el lector de voz está leyendo.
  */
@@ -17,7 +17,17 @@
   inset: 0;
   z-index: 79;
   background: color-mix(in srgb, var(--ink) 35%, transparent);
-  animation: a11y-fade 0.15s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0.35s;
+}
+
+.a11y-scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease;
 }
 
 .a11y-panel {
@@ -32,23 +42,51 @@
   background: var(--paper);
   border-left: var(--rule-thick);
   font-family: var(--f-body);
-  animation: a11y-in 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateX(104%);
+  visibility: hidden;
+  transition:
+    transform 0.4s cubic-bezier(0.4, 0, 0.6, 1),
+    visibility 0s linear 0.4s;
 }
 
-.a11y-panel[hidden] {
-  display: none;
+/* Apertura animada (como el menú de Noctivulp): el panel entra y sale deslizándose
+   desde la derecha, el fondo se oscurece con un fundido, los grupos aparecen uno tras
+   otro y el botón flotante se oculta mientras el panel está abierto. AccessibilityPanel.tsx
+   pone la clase is-open y deja el panel inerte (inert) cuando está cerrado. */
+.a11y-panel.is-open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@keyframes a11y-in {
+.a11y-panel.is-open .a11y-group {
+  animation: a11y-group-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(0.12s + var(--i, 0) * 0.07s);
+}
+
+@keyframes a11y-group-in {
   from {
-    transform: translateX(24px);
     opacity: 0;
+    transform: translateX(24px);
   }
 }
 
-@keyframes a11y-fade {
-  from {
-    opacity: 0;
+.fab--a11y[aria-expanded='true'] {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a11y-panel,
+  .a11y-panel.is-open,
+  .a11y-scrim,
+  .a11y-scrim.is-open {
+    transition: none;
+  }
+
+  .a11y-panel.is-open .a11y-group {
+    animation: none;
   }
 }
 
