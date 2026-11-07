@@ -77,6 +77,41 @@
   transform: scale(0.8);
 }
 
+/* En celular el panel es una hoja que sube desde abajo (como en Savia y Noctivulp):
+   ancho completo, hasta el 86 % del alto, y se sigue viendo el fondo oscurecido arriba
+   para cerrarla con un toque. Mantiene el estilo de ChainLedger: esquinas rectas,
+   borde grueso arriba y sombra dura. */
+@media (max-width: 640px) {
+  .a11y-panel {
+    top: auto;
+    left: 0;
+    width: 100%;
+    max-height: 86svh;
+    border-top: var(--rule-thick);
+    border-left: 0;
+    box-shadow: 0 -6px 0 var(--ink);
+    transform: translateY(104%);
+  }
+
+  /* con alto máximo (sin alto fijo) el cuerpo parte de su alto natural y hace scroll
+     dentro; con flex: 1 algunos navegadores lo dejaban sin alto */
+  .a11y-panel__body {
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .a11y-panel.is-open .a11y-group {
+    animation-name: a11y-group-up;
+  }
+
+  @keyframes a11y-group-up {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .a11y-panel,
   .a11y-panel.is-open,
