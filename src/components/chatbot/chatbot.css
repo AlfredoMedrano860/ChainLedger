@@ -396,7 +396,7 @@
 @media (max-width: 560px) {
   .chat__launcher {
     bottom: var(--s-2);
-    left: var(--s-2);
+    left: var(--gutter);
     width: 56px;
     height: 56px;
   }
@@ -409,13 +409,15 @@
 
   .chat__bubble {
     bottom: calc(var(--s-2) + 14px);
-    left: calc(var(--s-2) + 68px);
+    left: calc(var(--gutter) + 68px);
   }
 
+  /* Alineado con el contenido: el borde izquierdo en el margen de la página y la sombra
+     (5px) termina justo en el margen derecho, sin salirse del área del contenido. */
   .chat__panel {
-    right: 8px;
+    right: calc(var(--gutter) + 5px);
     bottom: calc(var(--s-2) + 68px);
-    left: 8px;
+    left: var(--gutter);
     width: auto;
     height: calc(100dvh - var(--header-h) - 100px);
     box-shadow: 5px 5px 0 var(--ink);
