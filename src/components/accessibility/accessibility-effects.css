@@ -135,7 +135,7 @@ html.a11y-short-lines :is(p, li, dd) {
   max-width: 60ch;
 }
 
-html.a11y-align-left :is(p, h1, h2, h3, li, dd):not([data-a11y-ui] *) {
+html.a11y-align-left :is(p, h1, h2, h3, li, dd) {
   text-align: left !important;
 }
 
@@ -154,7 +154,7 @@ html.a11y-links a:not(.brand, .footer__brand) {
   outline-offset: 3px;
 }
 
-html.a11y-headings :is(h1, h2, h3):not([data-a11y-ui] *) {
+html.a11y-headings :is(h1, h2, h3) {
   background: var(--signal);
   box-shadow: 0 0 0 6px var(--signal);
 }
@@ -194,30 +194,30 @@ html.a11y-reduce-motion *::after {
   animation-iteration-count: 1 !important;
 }
 
-html[data-a11y-color='monochrome'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='monochrome'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: grayscale(1);
 }
 
-html[data-a11y-color='low-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='low-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: saturate(0.55);
 }
 
-html[data-a11y-color='high-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='high-saturation'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: saturate(1.8);
 }
 
-html[data-a11y-color='warm'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='warm'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: sepia(0.3) saturate(1.05) hue-rotate(-6deg);
 }
 
-html[data-a11y-color='protanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='protanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: url(#cl-protanopia);
 }
 
-html[data-a11y-color='deuteranopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='deuteranopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: url(#cl-deuteranopia);
 }
 
-html[data-a11y-color='tritanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel) {
+html[data-a11y-color='tritanopia'] :is(.header__inner, .nav, main, .footer, .fab, .chat__launcher, .chat__bubble, .chat__panel, .a11y-panel) {
   filter: url(#cl-tritanopia);
 }

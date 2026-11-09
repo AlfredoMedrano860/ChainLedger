@@ -88,8 +88,9 @@
 }
 
 @media (max-width: 560px) {
+  /* la sombra (4px) termina en el margen del contenido, igual que el panel del chat */
   .fab {
-    right: var(--s-2);
+    right: calc(var(--gutter) + 4px);
     width: 48px;
     height: 48px;
   }
