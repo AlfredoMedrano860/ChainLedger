@@ -93,3 +93,22 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* En celular y tablet el nombre del sitio llena el ancho del contenido y queda centrado.
+   El texto mide 4.8 veces su tamaño de letra, así que el tamaño sale del ancho del contenedor. */
+@media (max-width: 900px) {
+  .hero > .container {
+    container-type: inline-size;
+  }
+
+  .hero__mega {
+    margin-left: 0;
+    text-align: center;
+    font-size: calc(100cqi / 4.86);
+  }
+
+  /* OpenDyslexic es más ancha: conserva su tamaño propio, solo se centra */
+  html.a11y-dyslexia .hero__mega {
+    font-size: var(--t-mega);
+  }
+}

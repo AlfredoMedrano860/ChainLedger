@@ -1,29 +1,24 @@
 /**
  * @file Componente raíz: arma la página con todas las secciones en orden.
  *
- * Las secciones 02, 04, 05 y 07 (de Didier) están reservadas con <SectionPlaceholder>.
- * Para completar una (por ejemplo Concept):
- *  1. Crea `src/sections/concept/Concept.tsx` (y su `concept.css`).
- *  2. Envuelve el contenido en `<Section id="concept" title="…">` (pone el número, el
- *     encabezado y el contenedor). Para texto con datos al lado usa `<ArticleLayout>`.
- *  3. Impórtala aquí y reemplaza su <SectionPlaceholder> por <Concept />.
- * El menú y el índice ya la enlazan, porque salen de `SECTIONS` en `data/site.ts`.
+ * Las 8 secciones siguen el orden de `SECTIONS` en `data/site.ts`; el menú y el índice
+ * salen de esa lista. Para una sección nueva se envuelve el contenido en
+ * `<Section id="…" title="…">` y se importa aquí.
  */
 import { AccessibilityPanel } from './components/accessibility/AccessibilityPanel'
 import { BackToTop } from './components/BackToTop/BackToTop'
 import { ChatBot } from './components/chatbot/ChatBot'
-import { SectionPlaceholder } from './components/SectionPlaceholder/SectionPlaceholder'
-import { AUTHORS } from './data/site'
+import { Benefits } from './sections/benefits/Benefits'
+import { Concept } from './sections/concept/Concept'
 import { Contact } from './sections/contact/Contact'
 import { Development } from './sections/development/Development'
+import { Example } from './sections/example/Example'
+import { Faq } from './sections/faq/Faq'
 import { Footer } from './sections/footer/Footer'
 import { Glossary } from './sections/glossary/Glossary'
 import { Header } from './sections/header/Header'
 import { Hero } from './sections/hero/Hero'
 import { Introduction } from './sections/introduction/Introduction'
-
-/** Autor de las secciones 02, 04, 05 y 07, que por ahora están reservadas. */
-const DIDIER = AUTHORS[1].name
 
 /**
  * Página completa: enlace para saltar al contenido, header, secciones, footer y los
@@ -40,12 +35,12 @@ export function App() {
         <span id="top" />
         <Hero />
         <Introduction />
-        <SectionPlaceholder id="concept" writer={DIDIER} />
+        <Concept />
         <Development />
-        <SectionPlaceholder id="example" writer={DIDIER} />
-        <SectionPlaceholder id="benefits" writer={DIDIER} />
+        <Example />
+        <Benefits />
         <Glossary />
-        <SectionPlaceholder id="faq" writer={DIDIER} />
+        <Faq />
         <Contact />
       </main>
       <Footer />

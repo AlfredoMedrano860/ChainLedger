@@ -2,7 +2,7 @@
  * Estilos del chatbot "Ask Blocky" y de la mascota.
  *
  * - .mascot        Blocky: pupilas que siguen al puntero (atributo transform desde Mascot.tsx),
- *                  parpadeo cada pocos segundos y pupilas hacia arriba al pensar.
+ *                  y pupilas hacia arriba al pensar.
  * - .chat__launcher botón flotante abajo a la izquierda (los de la derecha son
  *                  accesibilidad y volver arriba).
  * - .chat__panel   panel de conversación con borde grueso y sombra dura; en 560 px o
@@ -18,24 +18,6 @@
 
 .mascot--thinking .mascot__pupil {
   transform: translate(2px, -3px);
-}
-
-.mascot__eye {
-  transform-box: fill-box;
-  transform-origin: center;
-  animation: mascot-blink 4.5s infinite;
-}
-
-@keyframes mascot-blink {
-  0%,
-  92%,
-  100% {
-    transform: scaleY(1);
-  }
-
-  95% {
-    transform: scaleY(0.1);
-  }
 }
 
 .chat__launcher {
@@ -396,7 +378,7 @@
 @media (max-width: 560px) {
   .chat__launcher {
     bottom: var(--s-2);
-    left: var(--s-2);
+    left: var(--gutter);
     width: 56px;
     height: 56px;
   }
@@ -409,13 +391,15 @@
 
   .chat__bubble {
     bottom: calc(var(--s-2) + 14px);
-    left: calc(var(--s-2) + 68px);
+    left: calc(var(--gutter) + 68px);
   }
 
+  /* Alineado con el contenido: el borde izquierdo en el margen de la página y la sombra
+     (5px) termina justo en el margen derecho, sin salirse del área del contenido. */
   .chat__panel {
-    right: 8px;
+    right: calc(var(--gutter) + 5px);
     bottom: calc(var(--s-2) + 68px);
-    left: 8px;
+    left: var(--gutter);
     width: auto;
     height: calc(100dvh - var(--header-h) - 100px);
     box-shadow: 5px 5px 0 var(--ink);
@@ -423,13 +407,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .mascot__eye,
   .chat__typing span {
     animation: none;
   }
 }
 
-html.a11y-reduce-motion .mascot__eye,
 html.a11y-reduce-motion .chat__typing span {
   animation: none;
 }
