@@ -74,7 +74,12 @@ export const AUTHORS: Author[] = [
     wrote: 'Introduction, Development, Glossary, and Contact',
     linkedin: 'https://www.linkedin.com/in/josealfredomedrano',
   },
-  { name: 'Didier Aarón Mayorga Hernández', id: 'C4H018', wrote: 'Concept, Example, Benefits and Limitations, and FAQ' },
+  {
+    name: 'Didier Aarón Mayorga Hernández',
+    id: 'C4H018',
+    wrote: 'Concept, Example, Benefits and Limitations, and FAQ',
+    linkedin: 'https://www.linkedin.com/in/aaron-mayorga-254649448/',
+  },
 ]
 
 /**
