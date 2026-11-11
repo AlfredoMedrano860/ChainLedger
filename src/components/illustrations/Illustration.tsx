@@ -7,7 +7,7 @@ import './illustrations.css'
 
 /** Props de {@link Illustration}. */
 interface IllustrationProps {
-  /** Imagen con la parte fija del dibujo (archivo SVG en `src/assets/illustrations`). */
+  /** Imagen con la parte fija del dibujo (en `src/assets/illustrations`; las PNG tienen su fuente SVG en `source/`). */
   src: string
   /** Texto corto debajo del dibujo (opcional). */
   caption?: string

@@ -104,6 +104,33 @@ html.a11y-reduce-motion .illo__chain > * {
   animation: none !important;
 }
 
+/* Introducción de sección con la ilustración a la derecha (Benefits y FAQ). En 860 px o
+   menos la ilustración baja debajo del texto, centrada. */
+.section-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+  align-items: end;
+  gap: var(--s-6);
+}
+
+.section-intro__illo {
+  width: 100%;
+  max-width: 320px;
+  justify-self: end;
+}
+
+@media (max-width: 860px) {
+  .section-intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-4);
+  }
+
+  .section-intro__illo {
+    max-width: 280px;
+    justify-self: center;
+  }
+}
+
 /* Cuando la columna lateral pasa arriba del texto, la ilustración y su pie se centran. */
 @media (max-width: 860px) {
   .illo {

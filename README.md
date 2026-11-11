@@ -27,8 +27,12 @@ src/
 │   ├── header/              Header.tsx, header.css, useActiveSection.ts
 │   ├── hero/                Hero.tsx, LedgerChain.tsx (interactive chain), ledgerData.ts
 │   ├── introduction/        01 · Introduction: Introduction.tsx, SiteIndex.tsx
+│   ├── concept/             02 · Concept: Concept.tsx (text and public vs. private table)
 │   ├── development/         03 · Development: Development.tsx, RecordFlow.tsx (diagram)
+│   ├── example/             04 · Example: Example.tsx, TraceActivity.tsx (find the changed record)
+│   ├── benefits/            05 · Benefits & Limitations: Benefits.tsx
 │   ├── glossary/            06 · Glossary: Glossary.tsx (search + "appears in" links)
+│   ├── faq/                 07 · FAQ: Faq.tsx (questions that open and close)
 │   ├── contact/             08 · Contact: Contact.tsx, ContactForm.tsx (opens the email app)
 │   └── footer/              Footer.tsx, footer.css
 │
@@ -38,14 +42,15 @@ src/
 │   ├── ArticleLayout/       Text with a side column of fields and an illustration
 │   ├── Fields/              Label + value list (manifest fields)
 │   ├── ExternalLink/        Link that opens in a new tab, with ↗ and a screen reader note
-│   ├── SectionPlaceholder/  Empty reserved section (02, 04, 05, 07 for now)
+│   ├── SectionPlaceholder/  Empty reserved section, for a new section that is not written yet
 │   ├── Term/                Glossary word inside a paragraph (links to #term-{id})
 │   ├── Barcode/             Barcode drawn from a hash or generated from a seed
 │   ├── Logo/                ChainLedger mark
 │   ├── icons/               Icons: animated arrows and close (@animateicons/react), accessibility symbol
 │   ├── BackToTop/           Floating "back to the top" button
 │   ├── chatbot/             "Ask Blocky" chatbot and the Blocky mascot
-│   ├── illustrations/       Illustrations: image + animated SVG layer (ledger, crate, envelope)
+│   ├── illustrations/       Illustrations: image + animated SVG layer (ledger, crate, envelope, nodes, mangoes, scale, bubbles).
+│   │                        The new ones are PNG at 3x; their SVG sources are in src/assets/illustrations/source/
 │   ├── FloatingButton/      Shared styles for the floating buttons
 │   └── accessibility/       Accessibility panel, reading guide/mask, voice reader hooks
 │
@@ -69,12 +74,12 @@ component and function has JSDoc with its parameters.
 | # | Section | Writer | Status |
 |---|---|---|---|
 | 01 | Introduction | José Alfredo Medrano Saravia | Done |
-| 02 | Concept | Didier Aarón Mayorga Hernández | Reserved |
+| 02 | Concept | Didier Aarón Mayorga Hernández | Done |
 | 03 | Development | José Alfredo Medrano Saravia | Done |
-| 04 | Example | Didier Aarón Mayorga Hernández | Reserved |
-| 05 | Benefits & Limitations | Didier Aarón Mayorga Hernández | Reserved |
+| 04 | Example | Didier Aarón Mayorga Hernández | Done |
+| 05 | Benefits & Limitations | Didier Aarón Mayorga Hernández | Done |
 | 06 | Glossary | José Alfredo Medrano Saravia | Done |
-| 07 | FAQ | Didier Aarón Mayorga Hernández | Reserved |
+| 07 | FAQ | Didier Aarón Mayorga Hernández | Done |
 | 08 | Contact | José Alfredo Medrano Saravia | Done |
 
 ## Filling a reserved section
