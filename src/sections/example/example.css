@@ -1,0 +1,198 @@
+/**
+ * Estilos de la sección 04 · Example.
+ *
+ * - .trace-time  comparación de tiempos (papel vs. blockchain) en la columna de datos.
+ * - .activity    actividad "Find the changed record": una fila de manifiesto por bloque
+ *                con su número, registro, hashes y un botón para elegirlo. Al responder,
+ *                la conexión rota se marca en rojo. En 700 px o menos los hashes y el
+ *                botón bajan debajo del registro.
+ */
+
+.example__illo {
+  max-width: 300px;
+}
+
+.trace-time {
+  display: grid;
+  margin: 0;
+  border-top: var(--rule-thick);
+}
+
+.trace-time__row {
+  display: grid;
+  gap: 4px;
+  padding: var(--s-2) 0;
+  border-bottom: var(--rule);
+}
+
+.trace-time__value {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.trace-time__row--chain .trace-time__value {
+  color: var(--signal-ink);
+  font-size: 3rem;
+}
+
+.activity {
+  margin-top: var(--s-8);
+  border-top: var(--rule-thick);
+}
+
+.activity__head {
+  display: grid;
+  gap: 6px;
+  max-width: 46rem;
+  padding: var(--s-3) 0;
+}
+
+.activity__title {
+  font-size: var(--t-h3);
+}
+
+.activity__text {
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.trace {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: var(--rule);
+}
+
+.trace__row {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1.4fr) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 12px 0;
+  border-bottom: var(--rule);
+  transition: background-color 0.15s ease;
+}
+
+.trace__num {
+  font-family: var(--f-display);
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.trace__record {
+  display: grid;
+  gap: 2px;
+}
+
+.trace__what {
+  font-weight: 600;
+}
+
+.trace__where {
+  color: var(--ink-3);
+  font-size: var(--t-small);
+}
+
+.trace__hashes {
+  display: grid;
+  gap: 2px;
+  font-family: var(--f-data);
+  font-size: 0.75rem;
+  font-stretch: 87%;
+}
+
+.trace__hashes .is-mismatch {
+  color: var(--signal-ink);
+  font-weight: 700;
+  text-decoration: line-through 2px var(--signal);
+}
+
+.trace__pick {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 2px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--t-small);
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.trace__pick:hover:not(:disabled) {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.trace__pick:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.trace__row.is-answer .trace__pick {
+  background: var(--ink);
+  color: var(--paper);
+  opacity: 1;
+}
+
+.trace__row.is-broken {
+  background: color-mix(in srgb, var(--signal) 12%, transparent);
+  box-shadow: inset 4px 0 0 var(--signal);
+}
+
+.trace__row.is-broken .trace__num {
+  padding-left: 10px;
+  color: var(--signal-ink);
+}
+
+.activity__result {
+  display: grid;
+  justify-items: start;
+  gap: var(--s-2);
+  max-width: 46rem;
+  padding: var(--s-3) 0 0;
+  color: var(--ink-2);
+  line-height: 1.6;
+}
+
+.activity__verdict {
+  color: var(--signal-ink);
+  font-family: var(--f-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.activity__verdict.is-right {
+  color: var(--ok);
+}
+
+@media (max-width: 700px) {
+  .trace__row {
+    grid-template-columns: 44px minmax(0, 1fr) auto;
+    gap: 6px 12px;
+  }
+
+  .trace__num {
+    grid-row: span 2;
+  }
+
+  .trace__hashes {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .trace__pick {
+    grid-column: 3;
+    grid-row: 1 / span 2;
+  }
+}

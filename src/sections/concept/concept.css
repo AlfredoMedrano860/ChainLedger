@@ -1,0 +1,102 @@
+/**
+ * Estilos de la sección 02 · Concept.
+ *
+ * - .concept__illo  tamaño de la ilustración de los nodos.
+ * - .compare    tabla de manifiesto pública vs. privada. En 640 px o menos cada fila
+ *               pasa a ser una ficha con la pregunta arriba y las dos respuestas debajo.
+ */
+
+.concept__illo {
+  max-width: 340px;
+}
+
+.compare {
+  margin-top: var(--s-8);
+}
+
+.compare__title {
+  padding-bottom: 10px;
+  border-bottom: var(--rule-thick);
+  font-size: var(--t-h3);
+}
+
+.compare__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare__table th,
+.compare__table td {
+  padding: 14px var(--s-2) 14px 0;
+  border-bottom: var(--rule);
+  text-align: left;
+  vertical-align: top;
+}
+
+.compare__table thead th {
+  font-family: var(--f-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.compare__table tbody th {
+  width: 32%;
+  font-weight: 700;
+}
+
+.compare__table td {
+  color: var(--ink-2);
+}
+
+/* la columna privada es el tema del sitio: se marca con una regla roja */
+.compare__table .compare__private {
+  padding-left: var(--s-2);
+  border-left: 3px solid var(--signal);
+}
+
+.compare__table td.compare__private {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+@media (max-width: 640px) {
+  .compare__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .compare__table tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    border-bottom: var(--rule);
+  }
+
+  .compare__table tbody th {
+    grid-column: 1 / -1;
+    width: auto;
+    padding-bottom: 6px;
+    border-bottom: 0;
+  }
+
+  .compare__table td {
+    padding-top: 0;
+    border-bottom: 0;
+  }
+
+  .compare__table td::before {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--ink-3);
+    font-family: var(--f-data);
+    font-size: var(--t-label);
+    font-stretch: 87%;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    content: attr(data-label);
+  }
+}

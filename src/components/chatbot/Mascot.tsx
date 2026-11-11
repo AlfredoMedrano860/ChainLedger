@@ -27,10 +27,9 @@ interface MascotProps {
  * Dibuja a Blocky: un cuadrado rojo con sombra dura y ojos cuadrados.
  *
  * - Las pupilas siguen al puntero (mouse o dedo) por toda la página.
- * - Parpadea solo cada pocos segundos (animación CSS).
  * - Con `mood="thinking"` mira hacia arriba; `happy` sonríe y `confused` arruga la boca.
  *
- * Si la persona pidió reducir animaciones, los ojos se quedan quietos y no parpadea.
+ * Si la persona pidió reducir animaciones, los ojos se quedan quietos.
  * Es decorativo: el botón o panel que lo contiene pone el nombre accesible.
  */
 export function Mascot({ mood = 'idle', className = '' }: MascotProps) {

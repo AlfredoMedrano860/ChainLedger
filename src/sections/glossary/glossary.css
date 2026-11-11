@@ -261,7 +261,11 @@
   margin-right: 4px;
 }
 
+/* 24 px de alto como mínimo: la zona táctil que pide WCAG 2.2 */
 .gl-card__seen a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
   padding: 2px 7px;
   border: 1px solid currentColor;
   background: var(--paper);
